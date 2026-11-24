@@ -1,124 +1,97 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Page Title Scaffolding & Action Hub -->
-<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md pt-space-xs">
-  <div class="flex flex-col gap-1">
-    <div class="flex items-center gap-space-sm">
-      <h1 class="font-headline-xl text-headline-xl text-on-background tracking-tight">Procurement &amp; Inventory Dashboard</h1>
-    </div>
-    <p class="font-body-md text-body-md text-on-surface-variant"></p>
+<!-- Top Utility Header (2026 Clean Toolbar) -->
+<header class="util-toolbar">
+  <div class="util-left">
+    <span class="util-label">INVENTORY &amp; PROCUREMENT</span>
   </div>
-  <div class="flex items-center gap-space-sm flex-shrink-0">
-    <button class="flex items-center gap-space-xs px-space-lg py-2 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md transition-all shadow-md active:scale-95" type="button" onclick="openProcurementModal()">
-      <span class="material-symbols-outlined text-[20px]">add</span>
-      <span>New Procurement</span>
+  <div class="util-right">
+    <div class="util-search">
+      <span class="material-symbols-outlined util-search-icon">search</span>
+      <input type="text" placeholder="Search inventory, bids..." class="util-search-input">
+    </div>
+    <button class="util-bell" aria-label="Notifications">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="util-status-dot"></span>
+    </button>
+    <button class="util-profile" aria-label="Account menu">
+      <span class="material-symbols-outlined util-avatar">person</span>
+      <span>Administrator</span>
+      <span class="material-symbols-outlined util-chevron">arrow_drop_down</span>
     </button>
   </div>
-</div>
+</header>
 
-<!-- 3-Column High-Contrast Metric Cards Grid -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
-  <!-- Metric 1: Pending Bid Request -->
-  <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-secondary-container via-secondary to-on-secondary-fixed text-on-secondary p-space-lg flex flex-col justify-between shadow-md min-h-[150px]">
-    <div class="absolute -right-2 -bottom-2 w-16 h-16 bg-surface-container-lowest/10 rounded-full blur-xl pointer-events-none"></div>
-    <div class="flex items-start justify-between">
-      <div class="flex flex-col">
-        <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary-fixed opacity-90 leading-tight">Pending Bid Request</span>
-      </div>
-      <div class="w-8 h-8 rounded-lg bg-surface-container-lowest/15 backdrop-blur-sm flex items-center justify-center">
-        <span class="material-symbols-outlined text-surface text-[16px]">hourglass_top</span>
-      </div>
-    </div>
-    <div class="mt-space-md flex items-end justify-between">
-      <div class="flex flex-col">
-        <span class="font-metric-stat text-metric-stat text-surface font-extrabold tracking-tight">{{ stats.pending }}</span>
-        <span class="font-label-sm text-label-sm text-secondary-fixed font-semibold mt-1">Notices Active</span>
-      </div>
-    </div>
+<!-- KPI Metric Cards (3-Column Grid) — 2026 Tonal -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <!-- Metric 1: Pending Bid Requests (Amber) -->
+  <div class="kpi-card kpi-amber">
+    <div class="kpi-badge"><span class="material-symbols-outlined">hourglass_top</span></div>
+    <div class="kpi-label">Pending Bid Requests</div>
+    <div class="kpi-value">{{ stats.pending }}</div>
+    <div class="kpi-sub">Notices Active</div>
   </div>
 
-  <!-- Metric 2: Completed Bid Request -->
-  <div class="relative overflow-hidden rounded-xl bg-primary-container text-on-primary p-space-lg flex flex-col justify-between shadow-md min-h-[150px]">
-    <div class="absolute -right-3 -top-3 w-16 h-16 bg-primary-fixed/20 rounded-full blur-xl pointer-events-none"></div>
-    <div class="flex items-start justify-between">
-      <div class="flex flex-col">
-        <span class="font-label-sm text-label-sm uppercase tracking-wider text-primary-fixed opacity-90 leading-tight">Completed Bid Request</span>
-      </div>
-      <div class="w-8 h-8 rounded-lg bg-surface-container-lowest/15 backdrop-blur-sm flex items-center justify-center">
-        <span class="material-symbols-outlined text-surface text-[16px]">done_all</span>
-      </div>
-    </div>
-    <div class="mt-space-md flex items-end justify-between">
-      <div class="flex flex-col">
-        <span class="font-metric-stat text-metric-stat text-surface font-extrabold tracking-tight">{{ stats.complete }}</span>
-        <span class="font-label-sm text-label-sm text-primary-fixed font-semibold mt-1">Envelopes Cleared</span>
-      </div>
-    </div>
+  <!-- Metric 2: Completed Bid Requests (Emerald) -->
+  <div class="kpi-card kpi-emerald">
+    <div class="kpi-badge"><span class="material-symbols-outlined">check_circle</span></div>
+    <div class="kpi-label">Completed Bid Requests</div>
+    <div class="kpi-value">{{ stats.complete }}</div>
+    <div class="kpi-sub">Envelopes Cleared</div>
   </div>
 
-  <!-- Metric 3: Total Bids Awarded -->
-  <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-secondary via-on-secondary-fixed-variant to-inverse-surface text-on-secondary p-space-lg flex flex-col justify-between shadow-md min-h-[150px]">
-    <div class="absolute right-0 bottom-0 w-16 h-16 bg-secondary-container/20 rounded-full blur-2xl pointer-events-none"></div>
-    <div class="flex items-start justify-between">
-      <div class="flex flex-col">
-        <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary-fixed opacity-90 leading-tight">Total Bids Awarded</span>
-      </div>
-      <div class="w-8 h-8 rounded-lg bg-surface-container-lowest/15 backdrop-blur-sm flex items-center justify-center">
-        <span class="material-symbols-outlined text-secondary-fixed text-[16px]">emoji_events</span>
-      </div>
-    </div>
-    <div class="mt-space-md flex items-end justify-between">
-      <div class="flex flex-col">
-        <span class="font-metric-stat text-metric-stat text-surface font-extrabold tracking-tight">{{ stats.awarded }}</span>
-        <span class="font-label-sm text-label-sm text-secondary-fixed font-semibold mt-1">Contracts Won</span>
-      </div>
-    </div>
+  <!-- Metric 3: Total Bids Awarded (Terracotta) -->
+  <div class="kpi-card kpi-terracotta">
+    <div class="kpi-badge"><span class="material-symbols-outlined">emoji_events</span></div>
+    <div class="kpi-label">Total Bids Awarded</div>
+    <div class="kpi-value">{{ stats.awarded }}</div>
+    <div class="kpi-sub">Contracts Won</div>
   </div>
 </div>
 
-<section aria-labelledby="surplus-inventory-heading" class="rounded-xl border border-outline/30 bg-surface-container-lowest shadow-sm">
-  <div class="flex flex-col gap-space-sm border-b border-outline/30 bg-inverse-surface px-space-lg py-space-md text-inverse-on-surface sm:flex-row sm:items-center sm:justify-between">
-    <div class="flex items-center gap-space-sm">
-      <span class="material-symbols-outlined text-primary-fixed">inventory</span>
+<section aria-labelledby="surplus-inventory-heading" class="rounded-xl border border-outline/30 bg-surface-container-lowest shadow-sm overflow-hidden">
+  <div class="stock-section-header flex flex-col gap-2 border-b border-white/10 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+    <div class="flex items-center gap-3">
+      <span class="material-symbols-outlined text-[#96f7af]">inventory</span>
       <div>
-        <h2 id="surplus-inventory-heading" class="font-headline-sm text-headline-sm">Available/Excess Stock</h2>
-        <p class="mt-1 font-body-sm text-body-sm text-inverse-on-surface/80">Add stock manually or allocate surplus to an unfilled procurement item.</p>
+        <h2 id="surplus-inventory-heading" class="font-headline-sm text-sm text-white font-semibold">Available/Excess Stock</h2>
+        <p class="mt-1 font-body-sm text-xs text-[#96f7af]/80">Add stock manually or allocate surplus to an unfilled procurement item.</p>
       </div>
     </div>
-    <div class="flex items-center gap-space-sm">
-      <span class="w-fit rounded-full bg-primary-container px-3 py-1 font-label-sm text-label-sm text-on-primary">{{ surplus_items|length }} item{% if surplus_items|length != 1 %}s{% endif %}</span>
-      <button type="button" onclick="document.getElementById('addAvailableStockDialog').showModal()" class="inline-flex items-center gap-space-xs rounded-lg bg-primary-container px-space-md py-2 font-label-md text-label-md text-on-primary transition-colors hover:bg-primary">
-        <span class="material-symbols-outlined text-[18px]">add</span>
+    <div class="flex items-center gap-3">
+      <span class="w-fit rounded-full bg-white/10 px-3 py-1 font-label-sm text-xs text-white border border-white/20">{{ surplus_items|length }} item{% if surplus_items|length != 1 %}s{% endif %}</span>
+      <button type="button" onclick="document.getElementById('addAvailableStockDialog').showModal()" class="inline-flex items-center gap-1.5 rounded-lg bg-white px-4 py-2 font-label-sm text-xs text-[#006130] font-semibold transition-colors hover:bg-[#f8fafc]">
+        <span class="material-symbols-outlined text-[16px]">add</span>
         <span>Add Stock</span>
       </button>
     </div>
   </div>
   <div class="overflow-x-auto" style="-webkit-overflow-scrolling: touch;">
-    <table class="min-w-full border-separate border-spacing-0 text-left">
-      <thead class="bg-surface-container">
+    <table class="stock-table min-w-full border-separate border-spacing-0 text-left">
+      <thead>
         <tr>
-          <th class="border-b border-outline/30 px-space-md py-3 font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Item</th>
-          <th class="border-b border-outline/30 px-space-md py-3 text-center font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Available Quantity</th>
-          <th class="border-b border-outline/30 px-space-md py-3 font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Expiration</th>
-          <th class="border-b border-outline/30 px-space-md py-3 font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Source Procurement</th>
-          <th class="border-b border-outline/30 px-space-md py-3 text-right font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Manage / Allocate</th>
+          <th class="text-left">Item</th>
+          <th class="text-center">Available Quantity</th>
+          <th class="text-left">Expiration</th>
+          <th class="text-left">Source Procurement</th>
+          <th class="text-right">Manage / Allocate</th>
         </tr>
       </thead>
       <tbody>
         {% for stock in surplus_items %}
-        <tr class="transition-colors hover:bg-surface-container/70">
-          <td class="border-b border-outline/20 px-space-md py-3">
-            <span class="font-headline-sm text-headline-sm text-on-surface">{{ stock.name }}</span>
-            {% if stock.unit %}<span class="ml-1 font-body-sm text-body-sm text-on-surface-variant">({{ stock.unit }})</span>{% endif %}
+        <tr>
+          <td>
+            <span class="stock-item-name">{{ stock.name }}</span>
+            {% if stock.unit %}<span class="stock-item-unit">({{ stock.unit }})</span>{% endif %}
           </td>
-          <td class="border-b border-outline/20 px-space-md py-3 text-center">
+          <td class="text-center">
             <span id="view-qty-{{ stock.source_type }}{{ stock.source_id }}" class="view-mode inline-flex rounded-full bg-primary-fixed px-3 py-1 font-label-sm text-label-sm text-on-primary-fixed">{{ stock.quantity }}</span>
             <div id="edit-qty-{{ stock.source_type }}{{ stock.source_id }}" class="edit-mode hidden">
               <input type="number" name="quantity" min="0" value="{{ stock.quantity }}" required class="w-20 rounded-lg border border-outline bg-surface-container-lowest px-2 py-2 text-right font-body-md text-body-md text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
             </div>
           </td>
-          <td class="border-b border-outline/20 px-space-md py-3 font-body-md text-body-md">
+          <td>
             <span id="view-exp-{{ stock.source_type }}{{ stock.source_id }}" class="view-mode {% if stock.expiration_date %}{% if stock.expiration_date <= warning_cutoff %}text-error{% else %}text-on-surface{% endif %}{% else %}text-on-surface-variant{% endif %}">
               {% if stock.expiration_date %}{{ stock.expiration_date.strftime('%b %d, %Y') }}{% else %}Not set{% endif %}
             </span>
@@ -137,47 +110,47 @@
               <input type="date" name="expiration_date" value="{{ stock.expiration_date.isoformat() if stock.expiration_date else '' }}" class="min-w-0 flex-1 rounded-lg border border-outline bg-surface-container-lowest px-2 py-2 font-body-sm text-body-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
             </div>
           </td>
-          <td class="border-b border-outline/20 px-space-md py-3 font-body-md text-body-md text-on-surface">
+          <td>
             {% if stock.procurement %}
               <a href="{{ url_for('inventory.view_procurement', procurement_id=stock.procurement.id) }}" class="text-primary underline-offset-2 hover:underline">{{ stock.procurement.title }}</a>
             {% else %}
               <span class="text-on-surface-variant">Manually added</span>
             {% endif %}
           </td>
-          <td class="border-b border-outline/20 px-space-md py-3">
-            <div class="flex flex-col gap-space-sm">
-              <div id="view-actions-{{ stock.source_type }}{{ stock.source_id }}" class="view-mode flex items-end gap-space-xs">
+          <td class="text-right">
+            <div class="stock-actions-cell">
+              <div id="view-actions-{{ stock.source_type }}{{ stock.source_id }}" class="view-mode">
                 {% if stock.source_type == 'manual' %}
-                <button type="button" onclick="toggleEdit('{{ stock.source_type }}{{ stock.source_id }}', true)" class="inline-flex items-center gap-1 rounded-lg border border-outline px-3 py-2 font-label-sm text-label-sm text-on-surface transition-colors hover:bg-surface-container">
-                  <span class="material-symbols-outlined text-[18px]">edit</span>
+                <button type="button" onclick="toggleEdit('{{ stock.source_type }}{{ stock.source_id }}', true)" class="stock-action-text">
+                  <span class="material-symbols-outlined text-[14px]">edit</span>
                   <span>Edit Details</span>
                 </button>
                 <form action="{{ url_for('inventory.delete_available_stock', stock_id=stock.source_id) }}" method="POST" onsubmit="return confirm('Delete {{ stock.name }} from available stock?');">
-                  <button type="submit" class="inline-flex items-center gap-1 rounded-lg border border-error/40 px-3 py-2 font-label-sm text-label-sm text-error transition-colors hover:bg-error-container">
-                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                  <button type="submit" class="stock-action-text danger">
+                    <span class="material-symbols-outlined text-[14px]">delete</span>
                     <span>Delete</span>
                   </button>
                 </form>
                 {% else %}
-                <a href="{{ url_for('inventory.view_procurement', procurement_id=stock.procurement.id) }}" class="inline-flex items-center gap-1 rounded-lg border border-outline px-3 py-2 font-label-sm text-label-sm text-on-surface transition-colors hover:bg-surface-container">
-                  <span class="material-symbols-outlined text-[18px]">edit</span>
+                <a href="{{ url_for('inventory.view_procurement', procurement_id=stock.procurement.id) }}" class="stock-action-text">
+                  <span class="material-symbols-outlined text-[14px]">edit</span>
                   <span>Edit Item</span>
                 </a>
                 <form action="{{ url_for('inventory.remove_surplus', item_id=stock.source_id) }}" method="POST" onsubmit="return confirm('Remove excess {{ stock.name }} from available stock? The procurement target quantity will be kept.');">
-                  <button type="submit" class="inline-flex items-center gap-1 rounded-lg border border-error/40 px-3 py-2 font-label-sm text-label-sm text-error transition-colors hover:bg-error-container">
-                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                  <button type="submit" class="stock-action-text danger">
+                    <span class="material-symbols-outlined text-[14px]">delete</span>
                     <span>Remove Excess</span>
                   </button>
                 </form>
                 {% endif %}
               </div>
-              <div id="edit-actions-{{ stock.source_type }}{{ stock.source_id }}" class="edit-mode hidden flex items-end gap-space-xs">
-                <button type="button" onclick="saveRow('{{ stock.source_type }}{{ stock.source_id }}')" class="inline-flex items-center gap-1 rounded-lg bg-primary-container px-3 py-2 font-label-sm text-label-sm text-on-primary transition-colors hover:bg-primary">
-                  <span class="material-symbols-outlined text-[18px]">save</span>
+              <div id="edit-actions-{{ stock.source_type }}{{ stock.source_id }}" class="edit-mode hidden">
+                <button type="button" onclick="saveRow('{{ stock.source_type }}{{ stock.source_id }}')" class="inline-flex items-center gap-1.5 rounded-lg bg-[#006130] px-3 py-2 font-label-sm text-xs text-white transition-colors hover:bg-[#0b4a28]">
+                  <span class="material-symbols-outlined text-[16px]">save</span>
                   <span>Save</span>
                 </button>
-                <button type="button" onclick="toggleEdit('{{ stock.source_type }}{{ stock.source_id }}', false)" class="inline-flex items-center gap-1 rounded-lg border border-outline px-3 py-2 font-label-sm text-label-sm text-on-surface transition-colors hover:bg-surface-container">
-                  <span class="material-symbols-outlined text-[18px]">cancel</span>
+                <button type="button" onclick="toggleEdit('{{ stock.source_type }}{{ stock.source_id }}', false)" class="inline-flex items-center gap-1.5 rounded-lg border border-[#e2e8f0] px-3 py-2 font-label-sm text-xs text-[#475569] transition-colors hover:bg-[#f8fafc]">
+                  <span class="material-symbols-outlined text-[16px]">cancel</span>
                   <span>Cancel</span>
                 </button>
               </div>
@@ -186,30 +159,30 @@
                 <input type="date" name="expiration_date" value="{{ stock.expiration_date.isoformat() if stock.expiration_date else '' }}">
               </form>
               {% if allocatable_items %}
-              <form action="{{ url_for('inventory.allocate_available_stock', source_type=stock.source_type, source_id=stock.source_id) }}" method="POST" class="flex items-center gap-space-sm">
+              <form action="{{ url_for('inventory.allocate_available_stock', source_type=stock.source_type, source_id=stock.source_id) }}" method="POST" class="stock-allocate-row">
                 <label class="sr-only" for="destination{{ stock.source_type }}{{ stock.source_id }}">Procurement item to receive {{ stock.name }}</label>
-                <select id="destination{{ stock.source_type }}{{ stock.source_id }}" name="destination_item_id" required class="max-w-xs truncate rounded-lg border border-outline bg-surface-container-lowest px-2 py-2 font-body-sm text-body-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
+                <select id="destination{{ stock.source_type }}{{ stock.source_id }}" name="destination_item_id" required class="stock-allocate-select">
                   <option value="">Choose procurement item</option>
                   {% for destination in allocatable_items %}
                   <option value="{{ destination.item.id }}" title="{{ destination.item.name }} — needs {{ destination.remaining_quantity }} {{ destination.item.unit }}">{{ destination.item.name }} (needs {{ destination.remaining_quantity }})</option>
                   {% endfor %}
                 </select>
                 <label class="sr-only" for="allocateQty{{ stock.source_type }}{{ stock.source_id }}">Quantity to allocate</label>
-                <input id="allocateQty{{ stock.source_type }}{{ stock.source_id }}" type="number" name="quantity" min="1" max="{{ stock.quantity }}" value="1" required class="w-20 rounded-lg border border-outline bg-surface-container-lowest px-2 py-2 text-right font-body-md text-body-md text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
-                <button type="submit" class="inline-flex items-center gap-1 rounded-lg bg-primary-container px-3 py-2 font-label-sm text-label-sm text-on-primary transition-colors hover:bg-primary">
-                  <span class="material-symbols-outlined text-[18px]">move_down</span>
+                <input id="allocateQty{{ stock.source_type }}{{ stock.source_id }}" type="number" name="quantity" min="1" max="{{ stock.quantity }}" value="1" required class="stock-allocate-qty">
+                <button type="submit" class="stock-allocate-btn">
+                  <span class="material-symbols-outlined text-[16px]">move_down</span>
                   <span>Allocate</span>
                 </button>
               </form>
               {% else %}
-              <span class="text-right font-body-sm text-body-sm text-on-surface-variant">No unfilled procurement items</span>
+              <span class="text-right font-body-sm text-xs text-[#64748b]">No unfilled procurement items</span>
               {% endif %}
             </div>
           </td>
         </tr>
         {% else %}
         <tr>
-          <td colspan="5" class="px-space-lg py-space-lg text-center font-body-md text-body-md text-on-surface-variant">No excess stock is available yet. Add stock manually or record delivery quantities above a procurement target.</td>
+          <td colspan="5" class="px-6 py-8 text-center font-body-sm text-body-sm text-on-surface-variant">No excess stock is available yet. Add stock manually or record delivery quantities above a procurement target.</td>
         </tr>
         {% endfor %}
       </tbody>

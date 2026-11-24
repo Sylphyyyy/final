@@ -225,3 +225,244 @@ select, textarea {
   .user-chip > span:last-child { display: none; }
   .auth-form-side { padding: 18px; }
 }
+
+/* ===== 2026 Enterprise UI — Procurement Dashboard Refactor ===== */
+
+/* Top Utility Toolbar */
+.util-toolbar {
+  height: 64px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.util-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #475569;
+  text-transform: uppercase;
+}
+.util-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.util-search {
+  display: flex;
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 6px 10px;
+  min-width: 220px;
+}
+.util-search-icon {
+  color: #64748b;
+  margin-right: 8px;
+  font-size: 16px;
+}
+.util-search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.875rem;
+  color: #0f172a;
+  width: 100%;
+}
+.util-bell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  border-radius: 10px;
+  position: relative;
+}
+.util-bell:hover { background: #f1f5f9; color: #0f3d2e; }
+.util-status-dot {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+}
+.util-profile {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #0f3d2e;
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.util-profile:hover { background: #0b3026; }
+.util-avatar, .util-chevron { font-size: 16px; }
+
+/* KPI Cards — Tonal gradients, soft elevation */
+.kpi-card {
+  padding: 24px;
+  border-radius: 12px;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 150px;
+  position: relative;
+  overflow: hidden;
+}
+.kpi-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.kpi-badge .material-symbols-outlined { font-size: 16px; }
+.kpi-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+.kpi-value {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.kpi-sub {
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+.kpi-amber { background: linear-gradient(135deg, #d97706, #b45309); }
+.kpi-emerald { background: linear-gradient(135deg, #059669, #064e3b); }
+.kpi-terracotta { background: linear-gradient(135deg, #c2410c, #7c2d12); }
+
+/* Stock Table — Clean headers, softened dividers */
+.stock-section-header {
+  background: #0c2e22 !important;
+  color: #ffffff !important;
+}
+.stock-table thead th {
+  background: #0c2e22 !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  padding: 16px 20px !important;
+  border: none !important;
+}
+.stock-table tbody tr { background: #ffffff; }
+.stock-table td {
+  padding: 16px 20px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+.stock-table tr:last-child td { border-bottom: none !important; }
+
+/* Action column cleanup */
+.stock-actions-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+}
+.stock-action-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  color: #0f3d2e;
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+.stock-action-text:hover { text-decoration: underline; color: #006130; }
+.stock-action-text.danger { color: #ba1a1a; }
+.stock-action-text.danger:hover { color: #991b1b; }
+
+/* Allocation row — single horizontal line */
+.stock-allocate-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+.stock-allocate-select {
+  width: 170px;
+  padding: 6px 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #ffffff;
+  font-size: 0.8rem;
+  color: #0f172a;
+}
+.stock-allocate-qty {
+  width: 64px;
+  padding: 6px 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #ffffff;
+  font-size: 0.8rem;
+  color: #0f172a;
+  text-align: right;
+}
+.stock-allocate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  background: #006130;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.stock-allocate-btn:hover { background: #0b4a28; }
+
+/* Stock item name styling */
+.stock-item-name {
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 0.875rem;
+}
+.stock-item-unit {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-left: 4px;
+}
