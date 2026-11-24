@@ -132,6 +132,28 @@
     .app-sidebar.collapsed .sidebar-footer {
       padding-inline: 10px;
     }
+    .app-sidebar.hover-expanded,
+    .app-sidebar.collapsed.hover-expanded {
+      width: 248px !important;
+      min-width: 248px !important;
+    }
+    .app-sidebar.hover-expanded .sidebar-brand > div:last-child,
+    .app-sidebar.hover-expanded .nav-item span:last-child,
+    .app-sidebar.collapsed.hover-expanded .sidebar-brand > div:last-child,
+    .app-sidebar.collapsed.hover-expanded .nav-item span:last-child {
+      display: block !important;
+    }
+    .app-sidebar.hover-expanded .nav-item,
+    .app-sidebar.collapsed.hover-expanded .nav-item {
+      justify-content: flex-start !important;
+      padding-inline: 12px !important;
+      text-align: left !important;
+    }
+    .app-sidebar.hover-expanded ~ .app-main,
+    .app-sidebar.collapsed.hover-expanded ~ .app-main {
+      margin-left: 248px !important;
+    }
+    .app-main { transition: margin-left 0.2s ease; }
     .app-main.collapsed {
       margin-left: 72px !important;
     }
@@ -164,7 +186,7 @@
 </head>
 <body class="app-shell">
   {% if session.get('user_id') %}
-  <aside class="app-sidebar" id="appSidebar" aria-label="Primary navigation">
+  <aside class="app-sidebar collapsed" id="appSidebar" aria-label="Primary navigation">
     <a class="sidebar-brand" href="{{ url_for('inventory.index') }}" aria-label="ARVEE AYSCEE Enterprises dashboard">
       <img alt="" src="{{ url_for('static', filename='Logo.png') }}">
       <div class="brand-name">ARVEE AYSCEE<span><small>ENTERPRISES</small></span></div>
@@ -186,12 +208,9 @@
   </aside>
   {% endif %}
 
-  <main class="{% if session.get('user_id') %}app-main{% else %}w-full min-h-screen{% endif %}" id="appMain">
+  <main class="{% if session.get('user_id') %}app-main collapsed{% else %}w-full min-h-screen{% endif %}" id="appMain">
     {% if session.get('user_id') %}
     <header class="app-topbar">
-      <button id="sidebarToggle" class="mr-4 text-on-surface-variant hover:text-primary transition-colors" aria-label="Toggle sidebar">
-        <span class="material-symbols-outlined text-[24px]">menu</span>
-      </button>
       <div class="topbar-title">Inventory &amp; Procurement</div>
       <div class="topbar-actions">
         <div class="user-chip" title="Signed-in administrator">
@@ -253,39 +272,17 @@
 
           const sidebar = document.getElementById('appSidebar');
           const main = document.getElementById('appMain');
-          const toggle = document.getElementById('sidebarToggle');
-          const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+          if (!sidebar || !main) return;
 
-          function setCollapsed(collapsed) {
-            if (collapsed) {
-              sidebar.classList.add('collapsed');
-              main.classList.add('collapsed');
-              localStorage.setItem('sidebarCollapsed', 'true');
-            } else {
-              sidebar.classList.remove('collapsed');
-              main.classList.remove('collapsed');
-              localStorage.setItem('sidebarCollapsed', 'false');
-            }
-          }
-
-          if (isCollapsed) {
-            setCollapsed(true);
-          }
-
-          toggle.addEventListener('click', function () {
-            const currentlyCollapsed = sidebar.classList.contains('collapsed');
-            setCollapsed(!currentlyCollapsed);
-          });
-
-          // Auto-collapse on hover out for desktop
+          // Sidebar starts collapsed (icons only). Hover expands it on desktop.
           if (window.innerWidth > 640) {
-            sidebar.addEventListener('mouseleave', function () {
-              if (localStorage.getItem('sidebarAutoCollapse') === 'true') {
-                setCollapsed(true);
-              }
-            });
             sidebar.addEventListener('mouseenter', function () {
-              setCollapsed(false);
+              sidebar.classList.add('hover-expanded');
+              main.classList.add('hover-expanded');
+            });
+            sidebar.addEventListener('mouseleave', function () {
+              sidebar.classList.remove('hover-expanded');
+              main.classList.remove('hover-expanded');
             });
           }
         });
