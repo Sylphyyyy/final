@@ -140,7 +140,7 @@
             <div class="stock-actions-cell">
               <div class="view-mode">
                 {% if stock.source_type == 'manual' %}
-                <button type="button" onclick="openEditStockModal('manual', {{ stock.source_id }}, {{ stock.name|tojson }}, {{ stock.quantity }}, {{ stock.unit|tojson }}, {{ stock.expiration_date.isoformat() if stock.expiration_date else ''|tojson }})" class="stock-action-text">
+                <button type="button" data-source-type="manual" data-source-id="{{ stock.source_id }}" data-name="{{ stock.name|e }}" data-quantity="{{ stock.quantity }}" data-unit="{{ stock.unit or ''|e }}" data-expiration="{{ stock.expiration_date.isoformat() if stock.expiration_date else '' }}" onclick="openEditStockModal(this)" class="stock-action-text">
                   <span class="material-symbols-outlined text-[14px]">edit</span>
                   <span>Edit Details</span>
                 </button>
@@ -151,7 +151,7 @@
                   </button>
                 </form>
                 {% else %}
-                <button type="button" onclick="openEditStockModal('surplus', {{ stock.source_id }}, {{ stock.name|tojson }}, {{ stock.quantity }}, {{ stock.unit|tojson }}, {{ stock.expiration_date.isoformat() if stock.expiration_date else ''|tojson }})" class="stock-action-text">
+                <button type="button" data-source-type="surplus" data-source-id="{{ stock.source_id }}" data-name="{{ stock.name|e }}" data-quantity="{{ stock.quantity }}" data-unit="{{ stock.unit or ''|e }}" data-expiration="{{ stock.expiration_date.isoformat() if stock.expiration_date else '' }}" onclick="openEditStockModal(this)" class="stock-action-text">
                   <span class="material-symbols-outlined text-[14px]">edit</span>
                   <span>Edit Item</span>
                 </button>
@@ -471,7 +471,14 @@
   });
 
   // Edit Stock Modal — opens for both manual and surplus stock, no page navigation
-  function openEditStockModal(sourceType, sourceId, name, quantity, unit, expirationDate) {
+  function openEditStockModal(btn) {
+    const sourceType = btn.dataset.sourceType;
+    const sourceId = btn.dataset.sourceId;
+    const name = btn.dataset.name;
+    const quantity = btn.dataset.quantity;
+    const unit = btn.dataset.unit;
+    const expirationDate = btn.dataset.expiration;
+
     const modal = document.getElementById('editStockModal');
     const form = document.getElementById('editStockForm');
     const title = document.getElementById('editStockModalTitle');
