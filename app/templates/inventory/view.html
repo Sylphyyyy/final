@@ -209,8 +209,9 @@
                         </td>
                         <td class="px-2 py-1.5 text-center">
                             <input type="checkbox" name="delivery_checked" {% if item.delivery_checked %}checked{% endif %}
+                                data-item-id="{{ item.id }}"
                                 class="rounded border-outline text-primary focus:ring-primary"
-                                onchange="toggleDeliveryCheck({{ item.id }}, this)">
+                                onchange="toggleDeliveryCheck(this)">
                         </td>
                         <td class="px-2 py-1.5">
                             <div class="flex justify-end gap-1">
@@ -360,9 +361,10 @@
     })();
 
     // Auto-save delivery checkbox via fetch (no page reload)
-    function toggleDeliveryCheck(itemId, checkboxEl) {
+    function toggleDeliveryCheck(checkboxEl) {
+        const itemId = checkboxEl.dataset.itemId;
         const checked = checkboxEl.checked;
-        const url = "{{ url_for('inventory.toggle_delivery_check', item_id='ITEMID') }}".replace('ITEMID', itemId);
+        const url = '/inventory/items/' + itemId + '/delivery-check';
         fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
