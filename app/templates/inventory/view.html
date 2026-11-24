@@ -18,9 +18,9 @@
     </div>
 
     <section class="overflow-hidden rounded-xl border border-outline/30 bg-surface-container-lowest shadow-sm">
-        <div class="bg-inverse-surface px-space-lg py-space-lg text-inverse-on-surface">
-            <div class="flex flex-col gap-space-md">
-                <div class="flex flex-col gap-space-md lg:flex-row lg:items-start lg:justify-between">
+        <div class="bg-inverse-surface px-space-md py-space-md text-inverse-on-surface">
+            <div class="flex flex-col gap-space-sm">
+                <div class="flex flex-col gap-space-sm lg:flex-row lg:items-start lg:justify-between">
                     <div class="min-w-0">
                         <h1 class="font-headline-xl text-headline-xl break-words text-inverse-on-surface">{{ procurement.title }}</h1>
                         <div class="mt-space-sm flex flex-wrap items-center gap-space-sm">
@@ -38,14 +38,14 @@
                     </div>
                     <div class="flex flex-wrap gap-space-sm lg:flex-shrink-0">
                         <form action="{{ url_for('inventory.update_status', procurement_id=procurement.id, status='Awarded') }}" method="POST">
-                            <button type="submit" class="inline-flex items-center gap-space-xs rounded-lg bg-primary-container px-space-md py-2.5 font-label-md text-label-md text-on-primary transition-colors hover:bg-primary">
-                                <span class="material-symbols-outlined text-[18px]">emoji_events</span>
+                            <button type="submit" class="inline-flex items-center gap-space-xs rounded-lg bg-primary-container px-space-md py-2 font-label-sm text-label-sm text-on-primary transition-colors hover:bg-primary">
+                                <span class="material-symbols-outlined text-[16px]">emoji_events</span>
                                 <span>Mark as Awarded</span>
                             </button>
                         </form>
                         <form action="{{ url_for('inventory.update_status', procurement_id=procurement.id, status='Archived') }}" method="POST">
-                            <button type="submit" class="inline-flex items-center gap-space-xs rounded-lg border border-inverse-on-surface/40 px-space-md py-2.5 font-label-md text-label-md text-inverse-on-surface transition-colors hover:bg-inverse-on-surface/10">
-                                <span class="material-symbols-outlined text-[18px]">archive</span>
+                            <button type="submit" class="inline-flex items-center gap-space-xs rounded-lg border border-inverse-on-surface/40 px-space-md py-2 font-label-sm text-label-sm text-inverse-on-surface transition-colors hover:bg-inverse-on-surface/10">
+                                <span class="material-symbols-outlined text-[16px]">archive</span>
                                 <span>Archive (Lost)</span>
                             </button>
                         </form>
@@ -55,7 +55,7 @@
         </div>
 
         <dl class="grid grid-cols-1 gap-px border-t border-outline/30 bg-outline/30 sm:grid-cols-2 xl:grid-cols-4">
-            <div class="bg-surface-container-lowest px-space-lg py-space-md">
+            <div class="bg-surface-container-lowest px-space-md py-space-sm">
                 <dt class="font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Approved Budget (ABC)</dt>
                 <dd class="mt-1 font-headline-sm text-headline-sm text-primary">
                     {% if procurement.abc %}
@@ -65,17 +65,17 @@
                     {% endif %}
                 </dd>
             </div>
-            <div class="bg-surface-container-lowest px-space-lg py-space-md">
+            <div class="bg-surface-container-lowest px-space-md py-space-sm">
                 <dt class="font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Pre-Bid Date</dt>
-                <dd class="mt-1 font-body-md text-body-md text-on-surface">{{ procurement.pre_bid_date or 'N/A' }}</dd>
+                <dd class="mt-1 font-body-md text-body-sm text-on-surface">{{ procurement.pre_bid_date or 'N/A' }}</dd>
             </div>
-            <div class="bg-surface-container-lowest px-space-lg py-space-md">
+            <div class="bg-surface-container-lowest px-space-md py-space-sm">
                 <dt class="font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Place of Bidding</dt>
-                <dd class="mt-1 font-body-md text-body-md text-on-surface">{{ procurement.place_of_bidding or 'N/A' }}</dd>
+                <dd class="mt-1 font-body-md text-body-sm text-on-surface">{{ procurement.place_of_bidding or 'N/A' }}</dd>
             </div>
-            <div class="bg-surface-container-lowest px-space-lg py-space-md">
+            <div class="bg-surface-container-lowest px-space-md py-space-sm">
                 <dt class="font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Municipality / City</dt>
-                <dd class="mt-1 font-body-md text-body-md text-on-surface">{{ procurement.municipality or 'N/A' }}</dd>
+                <dd class="mt-1 font-body-md text-body-sm text-on-surface">{{ procurement.municipality or 'N/A' }}</dd>
             </div>
         </dl>
     </section>
@@ -136,65 +136,70 @@
             </div>
         </div>
         {% endif %}
-        <div class="flex flex-col gap-space-md border-b border-outline/30 bg-inverse-surface px-space-lg py-3 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex flex-col gap-space-sm border-b border-outline/30 bg-inverse-surface px-space-md py-2 sm:flex-row sm:items-center sm:justify-between gap-space-sm">
             <div class="flex items-center gap-space-sm">
-                <span class="material-symbols-outlined text-[20px] text-primary-fixed">inventory_2</span>
+                <span class="material-symbols-outlined text-[16px] text-primary-fixed">inventory_2</span>
                 <h2 class="font-headline-sm text-headline-sm text-inverse-on-surface">Inventory</h2>
             </div>
-            <button type="button" onclick="document.getElementById('addItemDialog').showModal()" class="inline-flex items-center justify-center gap-space-xs rounded-lg bg-primary-container px-space-md py-2 font-label-md text-label-md text-on-primary transition-colors hover:bg-primary">
-                <span class="material-symbols-outlined text-[18px]">add</span>
+            <button type="button" onclick="document.getElementById('addItemDialog').showModal()" class="inline-flex items-center justify-center gap-space-xs rounded-lg bg-primary-container px-space-md py-2 font-label-sm text-label-sm text-on-primary transition-colors hover:bg-primary">
+                <span class="material-symbols-outlined text-[16px]">add</span>
                 <span>Add Item</span>
             </button>
         </div>
 
-        <div class="overflow-x-auto">
-            <table class="min-w-full border-separate border-spacing-0 text-left">
+        <div class="overflow-hidden rounded-lg border border-outline/20 bg-surface-container-lowest">
+            <table class="min-w-full border-separate border-spacing-0 text-left text-sm">
                 <thead class="bg-surface-container">
                     <tr>
-                        <th class="border-b border-outline/30 px-space-md py-3 text-center font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Code</th>
-                        <th class="border-b border-outline/30 px-space-md py-3 font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Item Name</th>
-                        <th class="border-b border-outline/30 px-space-md py-3 font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Description</th>
-                        <th class="border-b border-outline/30 px-space-md py-3 text-center font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Unit</th>
-                        <th class="border-b border-outline/30 px-space-md py-3 text-right font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Estimated Unit Price</th>
-                        <th class="border-b border-outline/30 px-space-md py-3 text-right font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Total Price</th>
-                        <th class="border-b border-outline/30 px-space-md py-3 text-center font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Quantity (Current / Target)</th>
-                        <th class="border-b border-outline/30 px-space-md py-3 text-center font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Expiration Date</th>
-                        <th class="border-b border-outline/30 px-space-md py-3 text-center font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Delivery</th>
-                        <th class="border-b border-outline/30 px-space-md py-3 text-right font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Actions</th>
+                        <th class="border-b border-outline/30 px-2 py-1.5 text-center font-label-sm text-xs uppercase tracking-wide text-on-surface-variant">Code</th>
+                        <th class="border-b border-outline/30 px-2 py-1.5 font-label-sm text-xs uppercase tracking-wide text-on-surface-variant">Item Name</th>
+                        <th class="border-b border-outline/30 px-2 py-1.5 font-label-sm text-xs uppercase tracking-wide text-on-surface-variant">Description</th>
+                        <th class="border-b border-outline/30 px-2 py-1.5 text-center font-label-sm text-xs uppercase tracking-wide text-on-surface-variant">Unit</th>
+                        <th class="border-b border-outline/30 px-2 py-1.5 text-right font-label-sm text-xs uppercase tracking-wide text-on-surface-variant">Est. Unit Price</th>
+                        <th class="border-b border-outline/30 px-2 py-1.5 text-right font-label-sm text-xs uppercase tracking-wide text-on-surface-variant">Total Price</th>
+                        <th class="border-b border-outline/30 px-2 py-1.5 text-center font-label-sm text-xs uppercase tracking-wide text-on-surface-variant">Qty (Curr / Tgt)</th>
+                        <th class="border-b border-outline/30 px-2 py-1.5 text-center font-label-sm text-xs uppercase tracking-wide text-on-surface-variant">Expiration</th>
+                        <th class="border-b border-outline/30 px-2 py-1.5 text-center font-label-sm text-xs uppercase tracking-wide text-on-surface-variant">Delivery</th>
+                        <th class="border-b border-outline/30 px-2 py-1.5 text-right font-label-sm text-xs uppercase tracking-wide text-on-surface-variant">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for item in procurement.items %}
-                    <tr class="transition-colors hover:bg-surface-container/70">
-                        <td class="border-b border-outline/20 px-space-md py-3 text-center">
-                            <code class="rounded bg-surface-container px-2 py-1 font-label-sm text-label-sm text-on-surface">{{ item.code }}</code>
+                    <tr class="border-b border-outline/20 hover:bg-surface-container/30 transition-colors">
+                        <td class="px-2 py-1.5 text-center font-body-sm text-on-surface break-all">
+                            {{ item.code or '—' }}
                         </td>
-                        <td class="border-b border-outline/20 px-space-md py-3 font-headline-sm text-headline-sm text-on-surface">{{ item.name }}</td>
-                        <td class="max-w-xs truncate border-b border-outline/20 px-space-md py-3 font-body-md text-body-md text-on-surface-variant" title="{{ item.category }}">{{ item.category }}</td>
-                        <td class="border-b border-outline/20 px-space-md py-3 text-center font-body-md text-body-md text-on-surface">{{ item.unit }}</td>
-                        <td class="border-b border-outline/20 px-space-md py-3 text-right">
-                            <span class="font-headline-sm text-headline-sm text-primary">₱{{ "{:,.2f}".format(item.price|float) }}</span>
-                            <span class="block font-label-sm text-label-sm text-on-surface-variant">per {{ item.unit or 'unit' }}</span>
+                        <td class="px-2 py-1.5 font-headline-sm text-headline-sm text-on-surface break-words max-w-[120px]">
+                            {{ item.name }}
                         </td>
-                        <td class="border-b border-outline/20 px-space-md py-3 text-right font-headline-sm text-headline-sm text-on-surface">
+                        <td class="px-2 py-1.5 font-body-sm text-body-sm text-on-surface-variant break-words max-w-[140px]" title="{{ item.category }}">
+                            {{ item.category or '—' }}
+                        </td>
+                        <td class="px-2 py-1.5 text-center font-body-sm text-body-sm text-on-surface break-all">
+                            {{ item.unit or '—' }}
+                        </td>
+                        <td class="px-2 py-1.5 text-right font-headline-sm text-headline-sm text-primary">
+                            ₱{{ "{:,.2f}".format(item.price|float) }}
+                        </td>
+                        <td class="px-2 py-1.5 text-right font-headline-sm text-headline-sm text-on-surface">
                             ₱{{ "{:,.2f}".format((item.price|float) * (item.target_qty|int)) }}
-                            <span class="block font-label-sm text-label-sm text-on-surface-variant">Target qty: {{ item.target_qty }}</span>
                         </td>
-                        <td class="border-b border-outline/20 px-space-md py-3 text-center">
+                        <td class="px-2 py-1.5 text-center">
                             {% if item.current_qty >= item.target_qty %}
-                                <span class="inline-flex rounded-full bg-primary-fixed px-3 py-1 font-label-sm text-label-sm text-on-primary-fixed">
+                                <span class="inline-flex rounded-full bg-primary-fixed px-2 py-0.5 font-label-sm text-[10px] text-on-primary-fixed">
                                     {{ item.current_qty }} / {{ item.target_qty }}
-                                    <span class="ml-2 font-label-sm opacity-80">Delivered</span>
                                 </span>
                             {% else %}
-                                <span class="inline-flex rounded-full bg-secondary-fixed px-3 py-1 font-label-sm text-label-sm text-on-secondary-fixed">{{ item.current_qty }} / {{ item.target_qty }}</span>
+                                <span class="inline-flex rounded-full bg-secondary-fixed px-2 py-0.5 font-label-sm text-[10px] text-on-secondary-fixed">
+                                    {{ item.current_qty }} / {{ item.target_qty }}
+                                </span>
                             {% endif %}
                         </td>
-                        <td class="border-b border-outline/20 px-space-md py-3 text-center font-body-md text-body-md text-on-surface">
+                        <td class="px-2 py-1.5 text-center font-body-sm text-body-sm text-on-surface break-all">
                             {% if item.expiration_date %}
-                                <span>{{ item.expiration_date.strftime('%b %d, %Y') }}</span>
+                                <span class="break-all">{{ item.expiration_date.strftime('%b %d, %Y') }}</span>
                                 {% if item.current_qty > 0 and item.expiration_date <= warning_cutoff %}
-                                    <span class="mt-1 block font-label-sm text-label-sm text-error">
+                                    <span class="block mt-0.5 font-label-sm text-xs text-error">
                                         {% if item.expiration_date < today %}Expired{% else %}Expiring soon{% endif %}
                                     </span>
                                 {% endif %}
@@ -202,19 +207,21 @@
                                 <span class="text-on-surface-variant">Not set</span>
                             {% endif %}
                         </td>
-                        <td class="border-b border-outline/20 px-space-md py-3 text-center">
-                            <form action="{{ url_for('inventory.toggle_delivery_check', item_id=item.id) }}" method="POST" class="flex justify-center">
-                                <input type="checkbox" name="delivery_checked" {% if item.delivery_checked %}checked{% endif %} class="rounded border-outline text-primary focus:ring-primary" onchange="this.form.submit()">
-                            </form>
+                        <td class="px-2 py-1.5 text-center">
+                            <input type="checkbox" name="delivery_checked" {% if item.delivery_checked %}checked{% endif %}
+                                class="rounded border-outline text-primary focus:ring-primary"
+                                onchange="toggleDeliveryCheck({{ item.id }}, this)">
                         </td>
-                        <td class="border-b border-outline/20 px-space-md py-3">
-                            <div class="flex justify-end gap-space-xs">
-                                <button type="button" aria-label="Edit {{ item.name }}" onclick="document.getElementById('editItemDialog{{ item.id }}').showModal()" class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-outline/50 text-on-surface transition-colors hover:bg-surface-container">
-                                    <span class="material-symbols-outlined text-[18px]">edit</span>
+                        <td class="px-2 py-1.5">
+                            <div class="flex justify-end gap-1">
+                                <button type="button" aria-label="Edit {{ item.name }}" onclick="document.getElementById('editItemDialog{{ item.id }}').showModal()"
+                                    class="inline-flex h-8 w-8 items-center justify-center rounded border border-outline/50 text-on-surface transition-colors hover:bg-surface-container">
+                                    <span class="material-symbols-outlined text-[16px]">edit</span>
                                 </button>
                                 <form action="{{ url_for('inventory.delete_item', item_id=item.id) }}" method="POST" onsubmit="return confirm('Remove item?');">
-                                    <button type="submit" aria-label="Delete {{ item.name }}" class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-error/40 text-error transition-colors hover:bg-error-container">
-                                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                                    <button type="submit" aria-label="Delete {{ item.name }}"
+                                        class="inline-flex h-8 w-8 items-center justify-center rounded border border-error/40 text-error transition-colors hover:bg-error-container">
+                                        <span class="material-symbols-outlined text-[16px]">delete</span>
                                     </button>
                                 </form>
                             </div>
@@ -222,7 +229,7 @@
                     </tr>
                     {% else %}
                     <tr>
-                        <td colspan="10" class="px-space-lg py-space-xl text-center font-body-md text-body-md text-on-surface-variant">No items added to this procurement folder yet.</td>
+                        <td colspan="10" class="px-4 py-4 text-center font-body-sm text-body-sm text-on-surface-variant">No items added to this procurement folder yet.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -351,5 +358,38 @@
             updateEstimatedTotal();
         });
     })();
+
+    // Auto-save delivery checkbox via fetch (no page reload)
+    function toggleDeliveryCheck(itemId, checkboxEl) {
+        const checked = checkboxEl.checked;
+        const url = "{{ url_for('inventory.toggle_delivery_check', item_id='ITEMID') }}".replace('ITEMID', itemId);
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'delivery_checked=' + (checked ? '1' : '0')
+        })
+        .then(response => response.ok ? Promise.resolve() : Promise.reject('Save failed'))
+        .then(() => showToast('Delivery status saved'))
+        .catch(err => {
+            console.error(err);
+            checkboxEl.checked = !checked; // revert on failure
+        });
+    }
+
+    // Toast notification
+    function showToast(message) {
+        let toast = document.getElementById('toast-notification');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'toast-notification';
+            toast.className = 'fixed bottom-4 right-4 bg-primary text-on-primary px-4 py-2 rounded-lg shadow-xl text-sm font-semibold transform transition-all duration-300 translate-y-20 opacity-0 z-50';
+            document.body.appendChild(toast);
+        }
+        toast.textContent = message;
+        toast.classList.remove('translate-y-20', 'opacity-0');
+        setTimeout(() => {
+            toast.classList.add('translate-y-20', 'opacity-0');
+        }, 3000);
+    }
 </script>
 {% endblock %}
