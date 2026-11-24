@@ -185,15 +185,7 @@
                             ₱{{ "{:,.2f}".format((item.price|float) * (item.target_qty|int)) }}
                         </td>
                         <td class="px-2 py-1.5 text-center">
-                            {% if item.current_qty >= item.target_qty %}
-                                <span class="inline-flex rounded-full bg-primary-fixed px-2 py-0.5 font-label-sm text-[10px] text-on-primary-fixed">
-                                    {{ item.current_qty }} / {{ item.target_qty }}
-                                </span>
-                            {% else %}
-                                <span class="inline-flex rounded-full bg-secondary-fixed px-2 py-0.5 font-label-sm text-[10px] text-on-secondary-fixed">
-                                    {{ item.current_qty }} / {{ item.target_qty }}
-                                </span>
-                            {% endif %}
+                            <span class="font-body-sm text-body-sm text-on-surface">{{ item.current_qty }}</span>
                         </td>
                         <td class="px-2 py-1.5 text-center font-body-sm text-body-sm text-on-surface break-all">
                             {% if item.expiration_date %}
