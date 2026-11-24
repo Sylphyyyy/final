@@ -9,13 +9,14 @@
   <div class="util-right">
     <div class="util-search">
       <span class="material-symbols-outlined util-search-icon">search</span>
-      <input type="text" placeholder="Search inventory, bids..." class="util-search-input">
+      <input type="text" id="globalSearch" placeholder="Search inventory, bids..." class="util-search-input">
     </div>
     <button class="util-bell" aria-label="Notifications">
       <span class="material-symbols-outlined">notifications</span>
       <span class="util-status-dot"></span>
     </button>
     <button class="util-profile" aria-label="Account menu">
+      <!-- TODO: Implement administrator account menu (dropdown: profile, settings, logout) — suggested function only, not implemented -->
       <span class="material-symbols-outlined util-avatar">person</span>
       <span>Administrator</span>
       <span class="material-symbols-outlined util-chevron">arrow_drop_down</span>
@@ -450,5 +451,31 @@
   function saveRow(id) {
     document.getElementById(`update-form-${id}`).submit();
   }
+
+  // Global search — filters the Available/Excess Stock table rows
+  (function () {
+    const searchInput = document.getElementById('globalSearch');
+    const stockTable = document.querySelector('.stock-table tbody');
+    if (!searchInput || !stockTable) return;
+
+    searchInput.addEventListener('input', function () {
+      const term = searchInput.value.toLowerCase().trim();
+      const rows = stockTable.querySelectorAll('tr');
+
+      rows.forEach(function (row) {
+        const cells = row.querySelectorAll('td');
+        if (cells.length === 0) return;
+
+        let match = false;
+        cells.forEach(function (cell) {
+          if (cell.textContent.toLowerCase().includes(term)) {
+            match = true;
+          }
+        });
+
+        row.style.display = match ? '' : 'none';
+      });
+    });
+  })();
 </script>
 {% endblock %}
