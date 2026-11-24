@@ -12,43 +12,6 @@
   <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
 </head>
 <body class="bg-[#f8fafc]">
-  <!-- Top Utility Header (matching dashboard) -->
-  <header class="util-toolbar">
-    <div class="util-left">
-      <span class="util-label">INVENTORY &amp; PROCUREMENT</span>
-    </div>
-    <div class="util-right">
-      <button class="util-bell" aria-label="Notifications">
-        <span class="material-symbols-outlined">notifications</span>
-        <span class="util-status-dot"></span>
-      </button>
-      <div class="relative">
-        <button class="util-profile" aria-label="Account menu" id="adminMenuBtn" aria-expanded="false" aria-haspopup="true">
-          <span class="material-symbols-outlined util-avatar">person</span>
-          <span>Administrator</span>
-          <span class="material-symbols-outlined util-chevron">arrow_drop_down</span>
-        </button>
-        <div id="adminMenu" class="hidden absolute right-0 mt-2 w-56 rounded-lg border border-outline bg-surface-container-lowest shadow-xl z-50">
-          <div class="px-4 py-2 border-b border-outline/50">
-            <div class="flex items-center gap-2">
-              <span class="material-symbols-outlined text-[16px] text-primary">person</span>
-              <span class="font-label-md text-sm text-on-surface font-semibold">{{ session.get('username', 'Administrator') }}</span>
-            </div>
-            <p class="text-xs text-on-surface-variant mt-0.5">{{ user.email or 'No email set' }}</p>
-          </div>
-          <a href="{{ url_for('settings.settings') }}" class="flex items-center gap-2 px-4 py-3 text-sm font-body-sm text-on-surface hover:bg-surface-container-low transition-colors border-b border-outline/50 last:border-0">
-            <span class="material-symbols-outlined text-[16px] text-primary">settings</span>
-            <span>Settings</span>
-          </a>
-          <form method="POST" action="{{ url_for('auth.logout') }}" class="flex items-center gap-2 px-4 py-3 text-sm font-body-sm text-error hover:bg-error-container/10 transition-colors border-b-0">
-            <span class="material-symbols-outlined text-[16px] text-error">logout</span>
-            <span>Sign out</span>
-          </form>
-        </div>
-      </div>
-    </div>
-  </header>
-
   <div class="max-w-4xl mx-auto px-4 py-6 pb-24 md:pb-0">
     <!-- Page header -->
     <div class="flex flex-col gap-1 mb-8">
@@ -265,29 +228,5 @@
       </nav>
     </nav>
 
-    <script>
-      // Administrator dropdown menu
-    (function () {
-      const btn = document.getElementById('adminMenuBtn');
-      const menu = document.getElementById('adminMenu');
-      if (!btn || !menu) return;
-
-      btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        const expanded = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!expanded));
-        menu.classList.toggle('hidden');
-      });
-
-      document.addEventListener('click', function () {
-        btn.setAttribute('aria-expanded', 'false');
-        menu.classList.add('hidden');
-      });
-
-      menu.addEventListener('click', function (e) {
-        e.stopPropagation();
-      });
-    })();
-  </script>
-</body>
+  </body>
 </html>
