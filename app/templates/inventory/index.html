@@ -500,7 +500,7 @@
       document.getElementById('editStockQuantity').value = quantity || 0;
       document.getElementById('editStockUnit').value = unit || '';
     } else {
-      form.action = '/surplus/' + sourceId;
+      form.action = '/inventory/surplus/' + sourceId;
       title.textContent = 'Edit Excess Stock';
       document.getElementById('editStockFieldName').classList.add('hidden');
       document.getElementById('editStockFieldQty').classList.add('hidden');
