@@ -19,58 +19,58 @@
 
 <!-- 3-Column High-Contrast Metric Cards Grid -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
-  <!-- Metric 1: Pending Bid Request (Amber/Orange) -->
-  <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-secondary-container via-secondary to-on-secondary-fixed text-on-secondary p-space-lg flex flex-col justify-between shadow-md min-h-[170px]">
-    <div class="absolute -right-4 -bottom-4 w-28 h-28 bg-surface-container-lowest/10 rounded-full blur-xl pointer-events-none"></div>
+  <!-- Metric 1: Pending Bid Request -->
+  <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-secondary-container via-secondary to-on-secondary-fixed text-on-secondary p-space-lg flex flex-col justify-between shadow-md min-h-[150px]">
+    <div class="absolute -right-2 -bottom-2 w-16 h-16 bg-surface-container-lowest/10 rounded-full blur-xl pointer-events-none"></div>
     <div class="flex items-start justify-between">
       <div class="flex flex-col">
-        <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary-fixed opacity-90">Pending Bid Request</span>
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary-fixed opacity-90 leading-tight">Pending Bid Request</span>
       </div>
-      <div class="w-12 h-12 rounded-lg bg-surface-container-lowest/15 backdrop-blur-sm flex items-center justify-center">
-        <span class="material-symbols-outlined text-surface text-[28px]">hourglass_top</span>
+      <div class="w-8 h-8 rounded-lg bg-surface-container-lowest/15 backdrop-blur-sm flex items-center justify-center">
+        <span class="material-symbols-outlined text-surface text-[16px]">hourglass_top</span>
       </div>
     </div>
     <div class="mt-space-md flex items-end justify-between">
       <div class="flex flex-col">
-        <span class="font-metric-stat text-metric-stat text-surface font-extrabold tracking-tight leading-none">{{ stats.pending }}</span>
+        <span class="font-metric-stat text-metric-stat text-surface font-extrabold tracking-tight">{{ stats.pending }}</span>
         <span class="font-label-sm text-label-sm text-secondary-fixed font-semibold mt-1">Notices Active</span>
       </div>
     </div>
   </div>
 
-  <!-- Metric 2: Completed Bid Request (Vibrant Brand Emerald Green) -->
-  <div class="relative overflow-hidden rounded-xl bg-primary-container text-on-primary p-space-lg flex flex-col justify-between shadow-md min-h-[170px]">
-    <div class="absolute -right-6 -top-6 w-32 h-32 bg-primary-fixed/20 rounded-full blur-xl pointer-events-none"></div>
+  <!-- Metric 2: Completed Bid Request -->
+  <div class="relative overflow-hidden rounded-xl bg-primary-container text-on-primary p-space-lg flex flex-col justify-between shadow-md min-h-[150px]">
+    <div class="absolute -right-3 -top-3 w-16 h-16 bg-primary-fixed/20 rounded-full blur-xl pointer-events-none"></div>
     <div class="flex items-start justify-between">
       <div class="flex flex-col">
-        <span class="font-label-sm text-label-sm uppercase tracking-wider text-primary-fixed opacity-90">Completed Bid Request</span>
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-primary-fixed opacity-90 leading-tight">Completed Bid Request</span>
       </div>
-      <div class="w-12 h-12 rounded-lg bg-surface-container-lowest/15 backdrop-blur-sm flex items-center justify-center">
-        <span class="material-symbols-outlined text-surface text-[28px]">done_all</span>
+      <div class="w-8 h-8 rounded-lg bg-surface-container-lowest/15 backdrop-blur-sm flex items-center justify-center">
+        <span class="material-symbols-outlined text-surface text-[16px]">done_all</span>
       </div>
     </div>
     <div class="mt-space-md flex items-end justify-between">
       <div class="flex flex-col">
-        <span class="font-metric-stat text-metric-stat text-surface font-extrabold tracking-tight leading-none">{{ stats.complete }}</span>
+        <span class="font-metric-stat text-metric-stat text-surface font-extrabold tracking-tight">{{ stats.complete }}</span>
         <span class="font-label-sm text-label-sm text-primary-fixed font-semibold mt-1">Envelopes Cleared</span>
       </div>
     </div>
   </div>
 
-  <!-- Metric 3: Total Bids Awarded (Won) (Deep Accent Orange / Emerald Gold) -->
-  <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-secondary via-on-secondary-fixed-variant to-inverse-surface text-on-secondary p-space-lg flex flex-col justify-between shadow-md min-h-[170px]">
-    <div class="absolute right-0 bottom-0 w-36 h-36 bg-secondary-container/20 rounded-full blur-2xl pointer-events-none"></div>
+  <!-- Metric 3: Total Bids Awarded -->
+  <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-secondary via-on-secondary-fixed-variant to-inverse-surface text-on-secondary p-space-lg flex flex-col justify-between shadow-md min-h-[150px]">
+    <div class="absolute right-0 bottom-0 w-16 h-16 bg-secondary-container/20 rounded-full blur-2xl pointer-events-none"></div>
     <div class="flex items-start justify-between">
       <div class="flex flex-col">
-        <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary-fixed opacity-90">Total Bids Awarded (Won)</span>
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary-fixed opacity-90 leading-tight">Total Bids Awarded</span>
       </div>
-      <div class="w-12 h-12 rounded-lg bg-surface-container-lowest/15 backdrop-blur-sm flex items-center justify-center">
-        <span class="material-symbols-outlined text-secondary-fixed text-[28px]">emoji_events</span>
+      <div class="w-8 h-8 rounded-lg bg-surface-container-lowest/15 backdrop-blur-sm flex items-center justify-center">
+        <span class="material-symbols-outlined text-secondary-fixed text-[16px]">emoji_events</span>
       </div>
     </div>
     <div class="mt-space-md flex items-end justify-between">
       <div class="flex flex-col">
-        <span class="font-metric-stat text-metric-stat text-surface font-extrabold tracking-tight leading-none">{{ stats.awarded }}</span>
+        <span class="font-metric-stat text-metric-stat text-surface font-extrabold tracking-tight">{{ stats.awarded }}</span>
         <span class="font-label-sm text-label-sm text-secondary-fixed font-semibold mt-1">Contracts Won</span>
       </div>
     </div>
@@ -113,15 +113,12 @@
             {% if stock.unit %}<span class="ml-1 font-body-sm text-body-sm text-on-surface-variant">({{ stock.unit }})</span>{% endif %}
           </td>
           <td class="border-b border-outline/20 px-space-md py-3 text-center">
-            <!-- View mode -->
             <span id="view-qty-{{ stock.source_type }}{{ stock.source_id }}" class="view-mode inline-flex rounded-full bg-primary-fixed px-3 py-1 font-label-sm text-label-sm text-on-primary-fixed">{{ stock.quantity }}</span>
-            <!-- Edit mode -->
             <div id="edit-qty-{{ stock.source_type }}{{ stock.source_id }}" class="edit-mode hidden">
               <input type="number" name="quantity" min="0" value="{{ stock.quantity }}" required class="w-20 rounded-lg border border-outline bg-surface-container-lowest px-2 py-2 text-right font-body-md text-body-md text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
             </div>
           </td>
           <td class="border-b border-outline/20 px-space-md py-3 font-body-md text-body-md">
-            <!-- View mode -->
             <span id="view-exp-{{ stock.source_type }}{{ stock.source_id }}" class="view-mode {% if stock.expiration_date %}{% if stock.expiration_date <= warning_cutoff %}text-error{% else %}text-on-surface{% endif %}{% else %}text-on-surface-variant{% endif %}">
               {% if stock.expiration_date %}{{ stock.expiration_date.strftime('%b %d, %Y') }}{% else %}Not set{% endif %}
             </span>
@@ -136,7 +133,6 @@
                 {% endif %}
               {% endif %}
             </div>
-            <!-- Edit mode -->
             <div id="edit-exp-{{ stock.source_type }}{{ stock.source_id }}" class="edit-mode hidden">
               <input type="date" name="expiration_date" value="{{ stock.expiration_date.isoformat() if stock.expiration_date else '' }}" class="min-w-0 flex-1 rounded-lg border border-outline bg-surface-container-lowest px-2 py-2 font-body-sm text-body-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
             </div>
@@ -150,7 +146,6 @@
           </td>
           <td class="border-b border-outline/20 px-space-md py-3">
             <div class="flex flex-col gap-space-sm">
-              <!-- View mode actions -->
               <div id="view-actions-{{ stock.source_type }}{{ stock.source_id }}" class="view-mode flex items-end gap-space-xs">
                 {% if stock.source_type == 'manual' %}
                 <button type="button" onclick="toggleEdit('{{ stock.source_type }}{{ stock.source_id }}', true)" class="inline-flex items-center gap-1 rounded-lg border border-outline px-3 py-2 font-label-sm text-label-sm text-on-surface transition-colors hover:bg-surface-container">
@@ -176,7 +171,6 @@
                 </form>
                 {% endif %}
               </div>
-              <!-- Edit mode actions -->
               <div id="edit-actions-{{ stock.source_type }}{{ stock.source_id }}" class="edit-mode hidden flex items-end gap-space-xs">
                 <button type="button" onclick="saveRow('{{ stock.source_type }}{{ stock.source_id }}')" class="inline-flex items-center gap-1 rounded-lg bg-primary-container px-3 py-2 font-label-sm text-label-sm text-on-primary transition-colors hover:bg-primary">
                   <span class="material-symbols-outlined text-[18px]">save</span>
@@ -187,7 +181,6 @@
                   <span>Cancel</span>
                 </button>
               </div>
-              <!-- Update form (hidden, submitted by Save) -->
               <form id="update-form-{{ stock.source_type }}{{ stock.source_id }}" action="{% if stock.source_type == 'surplus' %}{{ url_for('inventory.update_surplus', item_id=stock.source_id) }}{% else %}{{ url_for('inventory.update_available_stock', stock_id=stock.source_id) }}{% endif %}" method="POST" class="hidden">
                 <input type="number" name="{% if stock.source_type == 'surplus' %}surplus_qty{% else %}quantity{% endif %}" min="0" value="{{ stock.quantity }}">
                 <input type="date" name="expiration_date" value="{{ stock.expiration_date.isoformat() if stock.expiration_date else '' }}">
@@ -284,7 +277,6 @@
   </form>
 </dialog>
 
-<!-- Interactive Navigation Tabs (Driven by Jinja) -->
 <div class="flex items-center justify-between border-b-2 border-surface-container-high pt-space-sm">
   <div class="flex items-center gap-space-lg">
     <a href="{{ url_for('inventory.index', tab='active') }}" class="relative pb-3 flex items-center gap-2 font-headline-sm text-headline-sm transition-colors {% if current_tab == 'active' %}font-bold text-primary{% else %}font-semibold text-tertiary hover:text-on-surface{% endif %}">
@@ -303,12 +295,9 @@
   </div>
 </div>
 
-<!-- Project Cards Grid (Dynamic Loop) -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
   {% for p in procurements %}
   <div class="bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between overflow-hidden">
-    
-    <!-- Institutional Header Bar -->
     <div class="bg-inverse-surface px-space-md py-2.5 flex items-center justify-between text-inverse-on-surface">
       <div class="flex items-center gap-1.5 min-w-0">
         <span class="material-symbols-outlined text-[16px] text-primary-fixed flex-shrink-0">domain</span>
@@ -322,26 +311,18 @@
         {% else %}
           <span class="bg-secondary-container/90 text-on-secondary px-2 py-0.5 rounded font-label-sm text-label-sm font-bold tracking-wide">Ongoing</span>
         {% endif %}
-
         {% if p.is_government %}
           <span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded font-label-sm text-label-sm font-bold tracking-wide">Gov</span>
         {% endif %}
       </div>
     </div>
-
-    <!-- Card Body -->
     <div class="p-space-md flex-1 flex flex-col justify-between space-y-space-md">
       <div>
-        <h2 class="font-headline-sm text-headline-sm text-on-surface leading-snug font-bold line-clamp-2" title="{{ p.title }}">
-          {{ p.title }}
-        </h2>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface leading-snug font-bold line-clamp-2" title="{{ p.title }}">{{ p.title }}</h2>
       </div>
-      
-      <!-- Financials & Timeline Breakdown -->
       <div class="bg-surface-container-low rounded-lg p-space-sm space-y-2">
         <div class="flex items-baseline justify-between">
           <span class="font-label-sm text-label-sm text-tertiary uppercase font-semibold">Approved Budget (ABC)</span>
-          <!-- Added Currency symbol and Jinja Float formatting -->
           <span class="font-headline-sm text-headline-sm text-primary font-bold tabular-nums">₱ {{ "{:,.2f}".format(p.abc | float) }}</span>
         </div>
         <div class="pt-1.5 space-y-1">
@@ -355,8 +336,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Inventory Staging Progress Bar -->
       <div class="space-y-1">
         <div class="flex items-center justify-between font-label-sm text-label-sm">
           <span class="text-on-surface-variant font-medium">Stock Completion</span>
@@ -367,8 +346,6 @@
           <div class="h-full {{ progress_class }} rounded-full transition-all duration-500" style="width: {{ p.progress }}%;"></div>
         </div>
       </div>
-
-      <!-- Action Buttons -->
       <div class="pt-2 space-y-2">
         <a href="{{ url_for('inventory.view_procurement', procurement_id=p.id) }}" class="w-full flex items-center justify-center gap-2 py-2 px-space-md rounded-lg bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface font-label-md text-label-md transition-all shadow-sm">
           <span class="material-symbols-outlined text-[18px]">folder_open</span>
@@ -378,7 +355,6 @@
           <span class="material-symbols-outlined text-[18px]">print</span>
           <span>Print Procurement</span>
         </a>
-
         {% if current_tab == 'archive' %}
         <form action="{{ url_for('inventory.delete_procurement', procurement_id=p.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to permanently delete this procurement?');">
           <button type="submit" class="w-full flex items-center justify-center gap-2 py-2 px-space-md rounded-lg bg-error-container text-on-error-container hover:bg-error hover:text-on-error font-label-md text-label-md transition-all">
@@ -398,7 +374,6 @@
   {% endfor %}
 </div>
 
-<!-- Add Procurement Modal Component -->
 <div id="addProcurementModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-inverse-surface/60 backdrop-blur-sm p-4">
   <div class="bg-surface-container-lowest rounded-xl shadow-xl border-0 overflow-hidden w-full max-w-2xl">
     <form action="{{ url_for('inventory.add_procurement') }}" method="POST">
@@ -411,7 +386,6 @@
           <span class="material-symbols-outlined text-[24px]">close</span>
         </button>
       </div>
-      
       <div class="p-space-lg space-y-4">
         <div>
           <label class="block font-label-sm text-label-sm font-bold text-on-surface mb-1">Procurement Title</label>
@@ -442,7 +416,6 @@
           <input type="text" name="agency" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface focus:outline-none focus:border-primary" placeholder="e.g. Department of Education (DepEd)">
         </div>
       </div>
-
       <div class="bg-surface-container-low px-space-lg py-space-md border-t border-surface-container-high flex justify-end gap-space-sm">
         <button type="button" onclick="closeProcurementModal()" class="px-4 py-2 rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-container-high transition-colors">Cancel</button>
         <button type="submit" class="px-4 py-2 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md shadow-sm transition-all">Create Folder</button>
@@ -452,7 +425,6 @@
 </div>
 
 <script>
-  // Modal controls
   function openProcurementModal() {
     document.getElementById('addProcurementModal').classList.remove('hidden');
   }
@@ -461,51 +433,41 @@
     document.getElementById('addProcurementModal').classList.add('hidden');
   }
 
-  // Input Formatters
   document.addEventListener('DOMContentLoaded', function() {
-    // ABC Currency Formatter
     const abcInput = document.querySelector('input[name="abc"]');
     if (abcInput) {
       abcInput.addEventListener('input', function(e) {
         let value = e.target.value.replace(/[^0-9.]/g, '');
         let parts = value.split('.');
-        
         if (parts.length > 2) {
           parts = [parts[0], parts.slice(1).join('')];
         }
-        
         if (parts[0]) {
           parts[0] = parseInt(parts[0], 10).toLocaleString('en-US');
         }
-        
         e.target.value = parts.length > 0 && parts[0] !== '' ? '₱ ' + parts.join('.') : '';
       });
     }
 
-    // Pre-Bid Conference Date & Time Auto-Formatter (DD/MM/YYYY HH:MM AM/PM)
     const dateInput = document.querySelector('input[name="pre_bid_date"]');
     if (dateInput) {
       dateInput.addEventListener('input', function(e) {
         let val = e.target.value.replace(/\D/g, '');
         let formatted = '';
-
-        if (val.length > 0) formatted += val.substring(0, 2); // DD
-        if (val.length >= 3) formatted += '/' + val.substring(2, 4); // MM
-        if (val.length >= 5) formatted += '/' + val.substring(4, 8); // YYYY
-        if (val.length >= 9) formatted += ' ' + val.substring(8, 10); // HH
-        if (val.length >= 11) formatted += ':' + val.substring(10, 12); // MM
-        
+        if (val.length > 0) formatted += val.substring(0, 2);
+        if (val.length >= 3) formatted += '/' + val.substring(2, 4);
+        if (val.length >= 5) formatted += '/' + val.substring(4, 8);
+        if (val.length >= 9) formatted += ' ' + val.substring(8, 10);
+        if (val.length >= 11) formatted += ':' + val.substring(10, 12);
         if (val.length >= 12) {
           let hour = parseInt(val.substring(8, 10), 10);
           formatted += (hour >= 12) ? ' PM' : ' AM';
         }
-
         e.target.value = formatted.trim();
       });
-    });
+    }
   });
 
-  // Inline edit for available stock rows
   function toggleEdit(id, editing) {
     const idSel = id;
     document.querySelectorAll(`#view-qty-${idSel}, #view-exp-${idSel}, #view-exp-status-${idSel}, #view-actions-${idSel}`).forEach(el => el.classList.toggle('hidden', editing));
@@ -517,5 +479,3 @@
   }
 </script>
 {% endblock %}
-   
- 
