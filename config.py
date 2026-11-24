@@ -5,7 +5,7 @@ database_url = os.environ.get('DATABASE_URL')
 if database_url:
     scheme, separator, remainder = database_url.partition('://')
     if separator and scheme in {'postgres', 'postgresql'}:
-        database_url = f'postgresql+pg8000://{remainder}'
+        database_url = f'postgresql+psycopg2://{remainder}'
 
 
 class Config:
