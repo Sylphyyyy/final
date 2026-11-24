@@ -93,7 +93,7 @@
           <th class="text-left">Item</th>
           <th class="text-center">Available Quantity</th>
           <th class="text-left">Expiration</th>
-          <th class="text-left">Source Procurement</th>
+          <th class="text-center">Source Procurement</th>
           <th class="text-right">Manage / Allocate</th>
         </tr>
       </thead>
@@ -518,6 +518,29 @@
   function closeEditStockModal() {
     document.getElementById('editStockModal').close();
   }
+
+  // Edit Stock Modal form submission handler
+  (function () {
+    const form = document.getElementById('editStockForm');
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+
+      // Show loading state
+      submitBtn.innerHTML = '<span class="material-symbols-outlined text-[16px]">hourglass_top</span><span>Saving...</span>';
+      submitBtn.disabled = true;
+      submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+
+      // Small delay to show loading state, then allow natural form submission
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        submitBtn.innerHTML = originalText;
+      }, 600);
+    });
+  })();
 
   // Global search — filters the Available/Excess Stock table rows
   (function () {

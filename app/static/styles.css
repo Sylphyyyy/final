@@ -457,12 +457,17 @@ select, textarea {
 
 /* Stock item name styling */
 .stock-item-name {
-  font-weight: 600;
+  font-weight: 700;
   color: #0f172a;
-  font-size: 0.875rem;
+  font-size: 1rem;
+  display: block;
 }
 .stock-item-unit {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: #64748b;
-  margin-left: 4px;
+  margin-left: 6px;
+  font-weight: 400;
+  opacity: 0.7;
+  display: block;
+  margin-top: 1px;
 }
