@@ -13,6 +13,7 @@
     table { border-collapse: collapse; width: 100%; }
     th, td { border: 1px solid #777; padding: 0.5rem; text-align: left; vertical-align: top; }
     th { background: #eee; }
+    th.delivery-checkbox, td.delivery-checkbox { min-width: 120px; padding-top: 1.5rem; padding-bottom: 1.5rem; text-align: center; }
     @media print {
       body { margin: 0; }
       .actions { display: none; }
@@ -46,6 +47,7 @@
         <th>Target Quantity</th>
         <th>Current Quantity</th>
         <th>Expiration Date</th>
+        <th class="delivery-checkbox">Delivery - Checkbox</th>
       </tr>
     </thead>
     <tbody>
@@ -59,9 +61,10 @@
         <td>{{ item.target_qty }}</td>
         <td>{{ item.current_qty }}</td>
         <td>{{ item.expiration_date.strftime('%b %d, %Y') if item.expiration_date else '—' }}</td>
+        <td class="delivery-checkbox"></td>
       </tr>
       {% else %}
-      <tr><td colspan="8">No items recorded.</td></tr>
+      <tr><td colspan="9">No items recorded.</td></tr>
       {% endfor %}
     </tbody>
   </table>
