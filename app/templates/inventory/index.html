@@ -138,9 +138,9 @@
           </td>
           <td class="text-right">
             <div class="stock-actions-cell">
-              <div id="view-actions-{{ stock.source_type }}{{ stock.source_id }}" class="view-mode">
+              <div class="view-mode">
                 {% if stock.source_type == 'manual' %}
-                <button type="button" onclick="toggleEdit('{{ stock.source_type }}{{ stock.source_id }}', true)" class="stock-action-text">
+                <button type="button" onclick="openEditStockModal('manual', {{ stock.source_id }}, {{ stock.name|tojson }}, {{ stock.quantity }}, {{ stock.unit|tojson }}, {{ stock.expiration_date.isoformat() if stock.expiration_date else ''|tojson }})" class="stock-action-text">
                   <span class="material-symbols-outlined text-[14px]">edit</span>
                   <span>Edit Details</span>
                 </button>
@@ -151,10 +151,10 @@
                   </button>
                 </form>
                 {% else %}
-                <a href="{{ url_for('inventory.view_procurement', procurement_id=stock.procurement.id) }}" class="stock-action-text">
+                <button type="button" onclick="openEditStockModal('surplus', {{ stock.source_id }}, {{ stock.name|tojson }}, {{ stock.quantity }}, {{ stock.unit|tojson }}, {{ stock.expiration_date.isoformat() if stock.expiration_date else ''|tojson }})" class="stock-action-text">
                   <span class="material-symbols-outlined text-[14px]">edit</span>
                   <span>Edit Item</span>
-                </a>
+                </button>
                 <form action="{{ url_for('inventory.remove_surplus', item_id=stock.source_id) }}" method="POST" onsubmit="return confirm('Remove excess {{ stock.name }} from available stock? The procurement target quantity will be kept.');">
                   <button type="submit" class="stock-action-text danger">
                     <span class="material-symbols-outlined text-[14px]">delete</span>
@@ -163,20 +163,7 @@
                 </form>
                 {% endif %}
               </div>
-              <div id="edit-actions-{{ stock.source_type }}{{ stock.source_id }}" class="edit-mode hidden">
-                <button type="button" onclick="saveRow('{{ stock.source_type }}{{ stock.source_id }}')" class="inline-flex items-center gap-1.5 rounded-lg bg-[#006130] px-3 py-2 font-label-sm text-xs text-white transition-colors hover:bg-[#0b4a28]">
-                  <span class="material-symbols-outlined text-[16px]">save</span>
-                  <span>Save</span>
-                </button>
-                <button type="button" onclick="toggleEdit('{{ stock.source_type }}{{ stock.source_id }}', false)" class="inline-flex items-center gap-1.5 rounded-lg border border-[#e2e8f0] px-3 py-2 font-label-sm text-xs text-[#475569] transition-colors hover:bg-[#f8fafc]">
-                  <span class="material-symbols-outlined text-[16px]">cancel</span>
-                  <span>Cancel</span>
-                </button>
-              </div>
-              <form id="update-form-{{ stock.source_type }}{{ stock.source_id }}" action="{% if stock.source_type == 'surplus' %}{{ url_for('inventory.update_surplus', item_id=stock.source_id) }}{% else %}{{ url_for('inventory.update_available_stock', stock_id=stock.source_id) }}{% endif %}" method="POST" class="hidden">
-                <input type="number" name="{% if stock.source_type == 'surplus' %}surplus_qty{% else %}quantity{% endif %}" min="0" value="{{ stock.quantity }}">
-                <input type="date" name="expiration_date" value="{{ stock.expiration_date.isoformat() if stock.expiration_date else '' }}">
-              </form>
+
               {% if allocatable_items %}
               <form action="{{ url_for('inventory.allocate_available_stock', source_type=stock.source_type, source_id=stock.source_id) }}" method="POST" class="stock-allocate-row">
                 <label class="sr-only" for="destination{{ stock.source_type }}{{ stock.source_id }}">Procurement item to receive {{ stock.name }}</label>
@@ -209,36 +196,59 @@
   </div>
 </section>
 
-{% for stock in manual_stocks %}
-<dialog id="editAvailableStock{{ stock.id }}" class="w-[calc(100%-2rem)] max-w-xl rounded-xl border border-outline/30 bg-surface-container-lowest p-0 text-on-surface shadow-xl backdrop:bg-inverse-surface/60">
-  <form action="{{ url_for('inventory.edit_available_stock', stock_id=stock.id) }}" method="POST">
-    <div class="flex items-center justify-between border-b border-outline/30 bg-inverse-surface px-space-lg py-space-md text-inverse-on-surface">
-      <h2 class="font-headline-sm text-headline-sm">Edit Available Stock</h2>
-      <button type="button" aria-label="Close dialog" onclick="this.closest('dialog').close()" class="rounded-lg p-1 transition-colors hover:bg-inverse-on-surface/10">
+<!-- Universal Edit Stock Modal (replaces per-stock dialogs and inline edit mode) -->
+<dialog id="editStockModal" class="w-[calc(100%-2rem)] max-w-xl rounded-xl border border-outline/30 bg-surface-container-lowest p-0 text-on-surface shadow-xl backdrop:bg-inverse-surface/60">
+  <form id="editStockForm" method="POST">
+    <div class="flex items-center justify-between border-b border-outline/30 bg-inverse-surface px-6 py-4 text-inverse-on-surface">
+      <h2 class="font-headline-sm text-headline-sm font-bold flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary-fixed">edit</span>
+        <span id="editStockModalTitle">Edit Stock</span>
+      </h2>
+      <button type="button" aria-label="Close dialog" onclick="closeEditStockModal()" class="rounded-lg p-1 transition-colors hover:bg-inverse-on-surface/10">
         <span class="material-symbols-outlined">close</span>
       </button>
     </div>
-    <div class="grid grid-cols-1 gap-space-md p-space-lg sm:grid-cols-2">
-      <label class="flex flex-col gap-1.5 font-label-md text-label-md text-on-surface sm:col-span-2">Item Name
-        <input type="text" name="name" value="{{ stock.name }}" required maxlength="255" class="w-full rounded-lg border border-outline bg-surface-container-lowest px-space-md py-2.5 font-body-md text-body-md text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
-      </label>
-      <label class="flex flex-col gap-1.5 font-label-md text-label-md text-on-surface">Quantity
-        <input type="number" name="quantity" value="{{ stock.quantity }}" min="1" required class="w-full rounded-lg border border-outline bg-surface-container-lowest px-space-md py-2.5 font-body-md text-body-md text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
-      </label>
-      <label class="flex flex-col gap-1.5 font-label-md text-label-md text-on-surface">Unit
-        <input type="text" name="unit" value="{{ stock.unit or '' }}" maxlength="50" class="w-full rounded-lg border border-outline bg-surface-container-lowest px-space-md py-2.5 font-body-md text-body-md text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
-      </label>
-      <label class="flex flex-col gap-1.5 font-label-md text-label-md text-on-surface sm:col-span-2">Expiration Date
-        <input type="date" name="expiration_date" value="{{ stock.expiration_date.isoformat() if stock.expiration_date else '' }}" class="w-full rounded-lg border border-outline bg-surface-container-lowest px-space-md py-2.5 font-body-md text-body-md text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
-      </label>
+    <div class="grid grid-cols-1 gap-4 p-6 sm:grid-cols-2">
+      <input type="hidden" name="source_type" id="editStockSourceType">
+      <input type="hidden" name="source_id" id="editStockSourceId">
+
+      <!-- Manual stock: Item Name -->
+      <div id="editStockFieldName" class="flex flex-col gap-1.5 sm:col-span-2">
+        <label class="font-label-sm text-xs text-on-surface-variant uppercase tracking-wider">Item Name</label>
+        <input type="text" name="name" id="editStockName" required maxlength="255" class="w-full rounded-lg border border-outline bg-surface-container-lowest px-3 py-2.5 font-body-sm text-body-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all">
+      </div>
+
+      <!-- Manual stock: Quantity / Surplus: Excess Quantity -->
+      <div id="editStockFieldQty" class="flex flex-col gap-1.5">
+        <label class="font-label-sm text-xs text-on-surface-variant uppercase tracking-wider" id="editStockQtyLabel">Quantity</label>
+        <input type="number" name="quantity" id="editStockQuantity" min="0" required class="w-full rounded-lg border border-outline bg-surface-container-lowest px-3 py-2.5 font-body-sm text-body-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all">
+      </div>
+
+      <!-- Surplus stock: Excess Quantity field (surplus_qty) -->
+      <div id="editStockFieldSurplusQty" class="hidden flex flex-col gap-1.5">
+        <label class="font-label-sm text-xs text-on-surface-variant uppercase tracking-wider">Excess Quantity</label>
+        <input type="number" name="surplus_qty" id="editStockSurplusQty" min="0" class="w-full rounded-lg border border-outline bg-surface-container-lowest px-3 py-2.5 font-body-sm text-body-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all">
+        <p class="text-xs text-on-surface-variant mt-1">Updates the excess quantity beyond the procurement target.</p>
+      </div>
+
+      <!-- Unit (manual only) -->
+      <div id="editStockFieldUnit" class="flex flex-col gap-1.5">
+        <label class="font-label-sm text-xs text-on-surface-variant uppercase tracking-wider">Unit</label>
+        <input type="text" name="unit" id="editStockUnit" maxlength="50" class="w-full rounded-lg border border-outline bg-surface-container-lowest px-3 py-2.5 font-body-sm text-body-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all">
+      </div>
+
+      <!-- Expiration Date (both) -->
+      <div class="flex flex-col gap-1.5 sm:col-span-2">
+        <label class="font-label-sm text-xs text-on-surface-variant uppercase tracking-wider">Expiration Date</label>
+        <input type="date" name="expiration_date" id="editStockExpiration" class="w-full rounded-lg border border-outline bg-surface-container-lowest px-3 py-2.5 font-body-sm text-body-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all">
+      </div>
     </div>
-    <div class="flex justify-end gap-space-sm border-t border-outline/30 bg-surface-container-low px-space-lg py-space-md">
-      <button type="button" onclick="this.closest('dialog').close()" class="rounded-lg border border-outline px-space-md py-2.5 font-label-md text-label-md text-on-surface transition-colors hover:bg-surface-container">Cancel</button>
-      <button type="submit" class="rounded-lg bg-primary-container px-space-md py-2.5 font-label-md text-label-md text-on-primary transition-colors hover:bg-primary">Save Changes</button>
+    <div class="flex justify-end gap-2 border-t border-outline/30 bg-surface-container-low px-6 py-4">
+      <button type="button" onclick="closeEditStockModal()" class="rounded-lg border border-outline px-4 py-2 font-label-sm text-sm text-on-surface transition-colors hover:bg-surface-container">Cancel</button>
+      <button type="submit" class="rounded-lg bg-primary-container px-4 py-2 font-label-sm text-sm text-on-primary transition-colors hover:bg-primary">Save Changes</button>
     </div>
   </form>
 </dialog>
-{% endfor %}
 
 <dialog id="addAvailableStockDialog" class="w-[calc(100%-2rem)] max-w-xl rounded-xl border border-outline/30 bg-surface-container-lowest p-0 text-on-surface shadow-xl backdrop:bg-inverse-surface/60">
   <form action="{{ url_for('inventory.add_available_stock') }}" method="POST">
@@ -460,14 +470,46 @@
     }
   });
 
-  function toggleEdit(id, editing) {
-    const idSel = id;
-    document.querySelectorAll(`#view-qty-${idSel}, #view-exp-${idSel}, #view-exp-status-${idSel}, #view-actions-${idSel}`).forEach(el => el.classList.toggle('hidden', editing));
-    document.querySelectorAll(`#edit-qty-${idSel}, #edit-exp-${idSel}, #edit-actions-${idSel}`).forEach(el => el.classList.toggle('hidden', !editing));
+  // Edit Stock Modal — opens for both manual and surplus stock, no page navigation
+  function openEditStockModal(sourceType, sourceId, name, quantity, unit, expirationDate) {
+    const modal = document.getElementById('editStockModal');
+    const form = document.getElementById('editStockForm');
+    const title = document.getElementById('editStockModalTitle');
+
+    // Set hidden fields
+    document.getElementById('editStockSourceType').value = sourceType;
+    document.getElementById('editStockSourceId').value = sourceId;
+
+    // Set form action based on stock type
+    if (sourceType === 'manual') {
+      form.action = '/inventory/available-stock/' + sourceId + '/edit';
+      title.textContent = 'Edit Stock Details';
+      document.getElementById('editStockFieldName').classList.remove('hidden');
+      document.getElementById('editStockFieldQty').classList.remove('hidden');
+      document.getElementById('editStockFieldUnit').classList.remove('hidden');
+      document.getElementById('editStockFieldSurplusQty').classList.add('hidden');
+      document.getElementById('editStockQtyLabel').textContent = 'Quantity';
+      document.getElementById('editStockName').value = name || '';
+      document.getElementById('editStockQuantity').value = quantity || 0;
+      document.getElementById('editStockUnit').value = unit || '';
+    } else {
+      form.action = '/surplus/' + sourceId;
+      title.textContent = 'Edit Excess Stock';
+      document.getElementById('editStockFieldName').classList.add('hidden');
+      document.getElementById('editStockFieldQty').classList.add('hidden');
+      document.getElementById('editStockFieldUnit').classList.add('hidden');
+      document.getElementById('editStockFieldSurplusQty').classList.remove('hidden');
+      document.getElementById('editStockSurplusQty').value = quantity || 0;
+    }
+
+    // Expiration date (both types)
+    document.getElementById('editStockExpiration').value = expirationDate || '';
+
+    modal.showModal();
   }
 
-  function saveRow(id) {
-    document.getElementById(`update-form-${id}`).submit();
+  function closeEditStockModal() {
+    document.getElementById('editStockModal').close();
   }
 
   // Global search — filters the Available/Excess Stock table rows
