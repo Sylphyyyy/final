@@ -50,6 +50,11 @@ class User(db.Model):
     email = db.Column(db.String(320), nullable=True)
     reset_token_hash = db.Column(db.String(64), nullable=True)
     reset_token_expires_at = db.Column(db.BigInteger, nullable=True)
+    email_notifications = db.Column(db.Boolean, default=True, nullable=False)
+    expiration_warning_days = db.Column(db.Integer, default=30, nullable=False)
+    default_status_filter = db.Column(db.String(20), default='Ongoing', nullable=False)
+    two_factor_enabled = db.Column(db.Boolean, default=False, nullable=False)
+    last_login_at = db.Column(db.DateTime, nullable=True)
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)

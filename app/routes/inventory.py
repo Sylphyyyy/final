@@ -1,7 +1,7 @@
 import json
 from datetime import date, timedelta
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-from app.models import Procurement, Item, AvailableStock
+from app.models import Procurement, Item, AvailableStock, User
 from app import db
 
 inventory_bp = Blueprint('inventory', __name__, url_prefix='/inventory')
@@ -86,6 +86,7 @@ def index():
     }
 
     today = date.today()
+    user = db.session.get(User, session['user_id'])
     return render_template(
         'inventory/index.html',
         procurements=procurements,
@@ -96,6 +97,7 @@ def index():
         allocatable_items=allocatable_items,
         today=today,
         warning_cutoff=today + timedelta(days=30),
+        user=user,
     )
 
 

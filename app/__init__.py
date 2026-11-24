@@ -17,11 +17,13 @@ def create_app():
     db.init_app(app)
 
     from app.routes.auth import auth_bp
+    from app.routes.settings import settings_bp
     from app.routes.philgeps import philgeps_bp
     from app.routes.inventory import inventory_bp
     from app.routes.bid_upload import bid_upload_bp
 
     app.register_blueprint(auth_bp)
+    app.register_blueprint(settings_bp)
     app.register_blueprint(philgeps_bp)
     app.register_blueprint(inventory_bp)
     app.register_blueprint(bid_upload_bp)
@@ -67,6 +69,16 @@ def create_app():
                     connection.execute(text('ALTER TABLE "user" ADD COLUMN reset_token_hash VARCHAR(64)'))
                 if 'reset_token_expires_at' not in user_columns:
                     connection.execute(text('ALTER TABLE "user" ADD COLUMN reset_token_expires_at BIGINT'))
+                if 'email_notifications' not in user_columns:
+                    connection.execute(text('ALTER TABLE "user" ADD COLUMN email_notifications BOOLEAN NOT NULL DEFAULT TRUE'))
+                if 'expiration_warning_days' not in user_columns:
+                    connection.execute(text('ALTER TABLE "user" ADD COLUMN expiration_warning_days INTEGER NOT NULL DEFAULT 30'))
+                if 'default_status_filter' not in user_columns:
+                    connection.execute(text('ALTER TABLE "user" ADD COLUMN default_status_filter VARCHAR(20) NOT NULL DEFAULT \'Ongoing\''))
+                if 'two_factor_enabled' not in user_columns:
+                    connection.execute(text('ALTER TABLE "user" ADD COLUMN two_factor_enabled BOOLEAN NOT NULL DEFAULT FALSE'))
+                if 'last_login_at' not in user_columns:
+                    connection.execute(text('ALTER TABLE "user" ADD COLUMN last_login_at TIMESTAMP'))
 
             admin = User.query.filter_by(username='admin').first()
             if not admin:
