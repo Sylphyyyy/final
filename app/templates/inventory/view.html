@@ -159,6 +159,7 @@
                         <th class="border-b border-outline/30 px-space-md py-3 text-right font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Total Price</th>
                         <th class="border-b border-outline/30 px-space-md py-3 text-center font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Quantity (Current / Target)</th>
                         <th class="border-b border-outline/30 px-space-md py-3 text-center font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Expiration Date</th>
+                        <th class="border-b border-outline/30 px-space-md py-3 text-center font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Delivery</th>
                         <th class="border-b border-outline/30 px-space-md py-3 text-right font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Actions</th>
                     </tr>
                 </thead>
@@ -201,6 +202,11 @@
                                 <span class="text-on-surface-variant">Not set</span>
                             {% endif %}
                         </td>
+                        <td class="border-b border-outline/20 px-space-md py-3 text-center">
+                            <form action="{{ url_for('inventory.toggle_delivery_check', item_id=item.id) }}" method="POST" class="flex justify-center">
+                                <input type="checkbox" name="delivery_checked" {% if item.delivery_checked %}checked{% endif %} class="rounded border-outline text-primary focus:ring-primary" onchange="this.form.submit()">
+                            </form>
+                        </td>
                         <td class="border-b border-outline/20 px-space-md py-3">
                             <div class="flex justify-end gap-space-xs">
                                 <button type="button" aria-label="Edit {{ item.name }}" onclick="document.getElementById('editItemDialog{{ item.id }}').showModal()" class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-outline/50 text-on-surface transition-colors hover:bg-surface-container">
@@ -216,7 +222,7 @@
                     </tr>
                     {% else %}
                     <tr>
-                        <td colspan="9" class="px-space-lg py-space-xl text-center font-body-md text-body-md text-on-surface-variant">No items added to this procurement folder yet.</td>
+                        <td colspan="10" class="px-space-lg py-space-xl text-center font-body-md text-body-md text-on-surface-variant">No items added to this procurement folder yet.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
