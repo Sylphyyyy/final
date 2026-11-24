@@ -15,13 +15,13 @@ class Procurement(db.Model):
     status = db.Column(db.String(20), default='Ongoing')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    items = db.relationship('Item', backref='procurement', lazy=True, cascade="all, delete-orphan")
+    items = db.relationship('Item', backref='procurement', lazy=True)
 
 
 class Item(db.Model):
     __tablename__ = 'item'
     id = db.Column(db.Integer, primary_key=True)
-    procurement_id = db.Column(db.Integer, db.ForeignKey('procurement.id'), nullable=False)
+    procurement_id = db.Column(db.Integer, db.ForeignKey('procurement.id', ondelete='SET NULL'), nullable=True)
     code = db.Column(db.String(50))
     name = db.Column(db.String(255), nullable=False)
     category = db.Column(db.String(100))

@@ -516,7 +516,9 @@ def update_status(procurement_id, status):
 @inventory_bp.route('/delete_procurement/<int:procurement_id>', methods=['POST'])
 def delete_procurement(procurement_id):
     procurement = Procurement.query.get_or_404(procurement_id)
+    for item in procurement.items:
+        item.procurement_id = None
     db.session.delete(procurement)
     db.session.commit()
-    flash("Procurement folder permanently deleted.", "info")
+    flash("Procurement folder deleted. Items kept as excess stock.", "info")
     return redirect(url_for('inventory.index', tab='archive'))
