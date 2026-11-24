@@ -91,7 +91,6 @@
             </div>
 
             <form method="POST" action="{{ url_for('inventory.send_to_inventory') }}">
-                <input type="hidden" name="parsed_json" value='{{ parsed_data | tojson }}'>
                 <button type="submit" class="inline-flex items-center justify-center gap-space-xs rounded-lg bg-primary-container px-space-lg py-3 font-label-md text-label-md text-on-primary shadow-sm transition-all hover:bg-primary hover:text-on-primary">
                     <span class="material-symbols-outlined text-[18px]">inventory_2</span>
                     <span>Send to Inventory</span>

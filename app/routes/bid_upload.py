@@ -1,5 +1,5 @@
 import os
-from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
+from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app, session
 from werkzeug.utils import secure_filename
 from app.utils.ocr_parser import parse_bid_document
 
@@ -34,9 +34,11 @@ def scan_bid():
 
             parsed_data = parse_bid_document(file_path)
             if parsed_data and parsed_data.get('items') is not None:
+                session['parsed_bid_data'] = parsed_data
                 flash('Document scanned successfully!', 'success')
             else:
                 parsed_data = None
+                session.pop('parsed_bid_data', None)
                 flash('Could not extract bid details from this document. Please check the file and try again.', 'danger')
 
     return render_template('bids/scan.html', parsed_data=parsed_data)

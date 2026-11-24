@@ -318,13 +318,12 @@ def update_surplus(item_id):
 
 @inventory_bp.route('/send_to_inventory', methods=['POST'])
 def send_to_inventory():
-    raw_json = request.form.get('parsed_json')
-    if not raw_json:
+    data = session.get('parsed_bid_data')
+    if not data:
         flash("No scan data available to send.", "danger")
         return redirect(url_for('inventory.index'))
 
     try:
-        data = json.loads(raw_json)
         metadata = data.get('metadata', {})
         items = data.get('items', [])
 
@@ -354,11 +353,13 @@ def send_to_inventory():
             db.session.add(new_item)
 
         db.session.commit()
+        session.pop('parsed_bid_data', None)
         flash(f"Successfully saved procurement notice '{new_proc.title}' and {len(items)} items to Inventory!", "success")
         return redirect(url_for('inventory.view_procurement', procurement_id=new_proc.id))
 
     except Exception as e:
         db.session.rollback()
+        session.pop('parsed_bid_data', None)
         flash(f"Error transferring scan to inventory: {str(e)}", "danger")
         return redirect(url_for('inventory.index'))
 
