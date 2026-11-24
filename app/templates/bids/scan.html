@@ -85,18 +85,18 @@
         </div>
         {% endif %}
 
-        <div class="flex flex-col gap-space-md md:flex-row md:items-center md:justify-between">
-            <div>
-                <h2 class="font-headline-xl text-headline-xl text-on-background tracking-tight">Scan Results</h2>
-            </div>
+            <div class="flex flex-col gap-space-md md:flex-row md:items-center md:justify-between">
+                <div>
+                    <h2 class="font-headline-xl text-headline-xl text-on-background tracking-tight">Scan Results</h2>
+                </div>
 
-            <form method="POST" action="{{ url_for('inventory.send_to_inventory') }}">
-                <button type="submit" class="inline-flex items-center justify-center gap-space-xs rounded-lg bg-primary-container px-space-lg py-3 font-label-md text-label-md text-on-primary shadow-sm transition-all hover:bg-primary hover:text-on-primary">
-                    <span class="material-symbols-outlined text-[18px]">inventory_2</span>
-                    <span>Send to Inventory</span>
-                </button>
-            </form>
-        </div>
+                <form method="POST" action="{{ url_for('inventory.send_to_inventory') }}">
+                    <button type="submit" class="inline-flex items-center justify-center gap-space-xs rounded-lg bg-primary-container px-space-lg py-3 font-label-md text-label-md text-on-primary shadow-sm transition-all hover:bg-primary hover:text-on-primary">
+                        <span class="material-symbols-outlined text-[18px]">inventory_2</span>
+                        <span>Send to Inventory</span>
+                    </button>
+                </form>
+            </div>
 
         <div class="overflow-hidden rounded-xl border border-outline/20 bg-surface-container-lowest shadow-sm">
             <div class="overflow-x-auto">
