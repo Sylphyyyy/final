@@ -14,7 +14,9 @@
       main > :first-child { margin-top: 0 !important; }
       main > :last-child { margin-bottom: 0 !important; }
     }
-    ::-webkit-scrollbar { display: none; }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-thumb { background: #bdc9c1; border-radius: 999px; }
+    ::-webkit-scrollbar-track { background: transparent; }
   </style>
   <script src="https://cdn.tailwindcss.com"></script>
   <script id="tailwind-config">
@@ -161,25 +163,41 @@
       .app-sidebar.collapsed {
         position: fixed;
         width: 100%;
-        height: 64px;
+        height: auto;
+        min-height: 80px;
         inset: auto 0 0 0;
         flex-direction: row;
       }
-      .app-sidebar.collapsed .sidebar-brand, .app-sidebar.collapsed .sidebar-footer {
-        display: none;
-      }
+      .app-sidebar.collapsed .sidebar-brand { display: none; }
+      .app-sidebar.collapsed .sidebar-footer { flex-shrink: 0; display: flex; align-items: center; justify-content: center; padding: 6px 4px; }
       .app-sidebar.collapsed .sidebar-nav {
         width: 100%;
-        height: 64px;
+        min-width: 0;
+        height: auto;
+        min-height: 80px;
         grid-template-columns: repeat(3, 1fr);
-        padding: 7px;
+        padding: 6px 4px;
+        gap: 4px;
       }
       .app-sidebar.collapsed .nav-item {
-        min-height: 50px;
+        min-height: auto;
+        height: auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        padding: 6px 4px;
+        font-size: 10px;
+        white-space: nowrap;
+        text-align: center;
       }
+      .app-sidebar.collapsed .nav-item .material-symbols-outlined { font-size: 20px; }
+      .app-sidebar.collapsed .nav-item span:last-child { display: block !important; }
+      .app-sidebar.collapsed .sidebar-footer .nav-item { font-size: 10px; white-space: nowrap; text-align: center; }
+      .app-sidebar.collapsed .sidebar-footer .nav-item .material-symbols-outlined { font-size: 20px; }
       .app-main.collapsed {
         margin-left: 0 !important;
-        padding-bottom: 64px;
+        padding-bottom: 96px;
       }
     }
   </style>
