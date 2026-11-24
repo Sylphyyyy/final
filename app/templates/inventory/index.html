@@ -215,13 +215,13 @@
       <!-- Manual stock: Item Name -->
       <div id="editStockFieldName" class="flex flex-col gap-1.5 sm:col-span-2">
         <label class="font-label-sm text-xs text-on-surface-variant uppercase tracking-wider">Item Name</label>
-        <input type="text" name="name" id="editStockName" required maxlength="255" class="w-full rounded-lg border border-outline bg-surface-container-lowest px-3 py-2.5 font-body-sm text-body-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all">
+        <input type="text" name="name" id="editStockName" maxlength="255" class="w-full rounded-lg border border-outline bg-surface-container-lowest px-3 py-2.5 font-body-sm text-body-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all">
       </div>
 
       <!-- Manual stock: Quantity / Surplus: Excess Quantity -->
       <div id="editStockFieldQty" class="flex flex-col gap-1.5">
         <label class="font-label-sm text-xs text-on-surface-variant uppercase tracking-wider" id="editStockQtyLabel">Quantity</label>
-        <input type="number" name="quantity" id="editStockQuantity" min="0" required class="w-full rounded-lg border border-outline bg-surface-container-lowest px-3 py-2.5 font-body-sm text-body-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all">
+        <input type="number" name="quantity" id="editStockQuantity" min="0" class="w-full rounded-lg border border-outline bg-surface-container-lowest px-3 py-2.5 font-body-sm text-body-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all">
       </div>
 
       <!-- Surplus stock: Excess Quantity field (surplus_qty) -->
@@ -525,8 +525,47 @@
     if (!form) return;
 
     form.addEventListener('submit', function (e) {
+      const sourceType = document.getElementById('editStockSourceType').value;
       const submitBtn = form.querySelector('button[type="submit"]');
       const originalText = submitBtn.innerHTML;
+
+      // Validate visible required fields only
+      const nameInput = document.getElementById('editStockName');
+      const quantityInput = document.getElementById('editStockQuantity');
+      const surplusQtyInput = document.getElementById('editStockSurplusQty');
+      const unitInput = document.getElementById('editStockUnit');
+
+      let isValid = true;
+
+      if (sourceType === 'manual') {
+        if (!nameInput.value.trim()) {
+          nameInput.focus();
+          nameInput.classList.add('border-error', 'ring-2', 'ring-error/50');
+          isValid = false;
+        } else {
+          nameInput.classList.remove('border-error', 'ring-2', 'ring-error/50');
+        }
+        if (!quantityInput.value || parseInt(quantityInput.value, 10) < 0) {
+          quantityInput.focus();
+          quantityInput.classList.add('border-error', 'ring-2', 'ring-error/50');
+          isValid = false;
+        } else {
+          quantityInput.classList.remove('border-error', 'ring-2', 'ring-error/50');
+        }
+      } else {
+        if (!surplusQtyInput.value || parseInt(surplusQtyInput.value, 10) < 0) {
+          surplusQtyInput.focus();
+          surplusQtyInput.classList.add('border-error', 'ring-2', 'ring-error/50');
+          isValid = false;
+        } else {
+          surplusQtyInput.classList.remove('border-error', 'ring-2', 'ring-error/50');
+        }
+      }
+
+      if (!isValid) {
+        e.preventDefault();
+        return;
+      }
 
       // Show loading state
       submitBtn.innerHTML = '<span class="material-symbols-outlined text-[16px]">hourglass_top</span><span>Saving...</span>';
